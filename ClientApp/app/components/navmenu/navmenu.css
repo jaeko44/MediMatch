@@ -1,0 +1,11 @@
+li .glyphicon {
+    margin-right: 10px;
+}
+
+/* Highlighting rules for nav menu items */
+li.au-target.link-active a,
+li.au-target.link-active a:hover,
+li.au-target.link-active a:focus {
+    background-color: #4189C7;
+    color: white;
+}
