@@ -21,9 +21,9 @@ namespace MediMatchRMIT.Models
         public string Website { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public ICollection<Service> Services { get; set; }
-        public ICollection<Facility> Facilities { get; set; }
-        public Reviews Feedback { get; set; }
+        public List<Service> Services { get; set; }
+        public List<Facility> Facilities { get; set; }
+        public List<Reviews> Feedback { get; set; }
 
     }
     public class Service

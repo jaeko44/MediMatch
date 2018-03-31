@@ -12,11 +12,11 @@ namespace MediMatchRMIT.Controllers
 {
     [Produces("application/json")]
     [Route("api/MedicalProfessionals")]
-    public class MedicalProfessionalsController : Controller
+    public class MedicalProfessionalsAPIController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public MedicalProfessionalsController(ApplicationDbContext context)
+        public MedicalProfessionalsAPIController(ApplicationDbContext context)
         {
             _context = context;
         }
