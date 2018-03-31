@@ -28,6 +28,12 @@ namespace MediMatchRMIT.Controllers
 
             return View();
         }
+        public IActionResult App()
+        {
+            ViewData["Message"] = "Your aurelia app page.";
+
+            return View();
+        }
 
         public IActionResult Error()
         {
