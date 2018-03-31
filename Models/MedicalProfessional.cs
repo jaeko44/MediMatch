@@ -42,11 +42,11 @@ namespace MediMatchRMIT.Models
     {
         [Key]
         public int AddressId { get; set; }
-        public int PostCode { get; set; }
-        public int Street { get; set; }
-        public int StreetNo { get; set; }
+        public string PostCode { get; set; }
+        public string Street { get; set; }
+        public string StreetNo { get; set; }
         public string Suburb { get; set; }
-        public virtual DecimalDegrees Coordinates { get; set; }
+        public DecimalDegrees Coordinates { get; set; }
     }
     public class DecimalDegrees
     {

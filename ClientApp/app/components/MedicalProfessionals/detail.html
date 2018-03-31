@@ -1,0 +1,26 @@
+<template>
+    <h1>Medical Professional Detail</h1>
+
+    <p>This component demonstrates fetching via UI Parameter.</p>
+
+    <p if.bind="!medicalProfessional"><em>Loading...</em></p>
+
+    <table if.bind="medicalProfessional" class="table">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>${ medicalProfessional.firstMidName } ${ medicalProfessional.lastName }</td>
+                <td>${ medicalProfessional.email }</td>
+                <td>${ medicalProfessional.phoneNumber }</td>
+                <td>${ medicalProfessional.notes }</td>
+            </tr>
+        </tbody>
+    </table>
+</template>
