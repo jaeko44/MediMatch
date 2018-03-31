@@ -15,15 +15,15 @@ namespace MediMatchRMIT.Models
         public string FacilityName { get; set; }
         public string LastName { get; set; }
         public string FirstMidName { get; set; }
-        public virtual Address Location { get; set; }
-        public virtual HoursActive ServiceActive { get; set; }
+        public Address Location { get; set; }
+        public HoursActive ServiceActive { get; set; }
         public string Notes { get; set; }
         public string Website { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public virtual ICollection<Service> Services { get; set; }
-        public virtual ICollection<Facility> Facilities { get; set; }
-        public virtual Reviews Feedback { get; set; }
+        public ICollection<Service> Services { get; set; }
+        public ICollection<Facility> Facilities { get; set; }
+        public Reviews Feedback { get; set; }
 
     }
     public class Service
@@ -41,7 +41,7 @@ namespace MediMatchRMIT.Models
     public class Address
     {
         [Key]
-        public int MedicalId { get; set; }
+        public int AddressId { get; set; }
         public int PostCode { get; set; }
         public int Street { get; set; }
         public int StreetNo { get; set; }
@@ -57,6 +57,7 @@ namespace MediMatchRMIT.Models
     public class HoursActive
     {
         [Key]
+        public int ActiveId { get; set; }
         public string WeekDays { get; set; }
         public string Hours { get; set; }
     }
