@@ -19,4 +19,10 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="ClientApp\app\components\MedicalProfessionals\create.map">
+      <DependentUpon>create.js</DependentUpon>
+    </None>
+  </ItemGroup>
+
 </Project>

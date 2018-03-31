@@ -5,7 +5,7 @@ export class App {
     router: Router;
 
     configureRouter(config: RouterConfiguration, router: Router) {
-        config.title = 'MediMatch_Modern';
+        config.title = 'MediMatchRMIT';
         config.map([{
             route: [ '', 'home' ],
             name: 'home',
@@ -14,19 +14,25 @@ export class App {
             nav: true,
             title: 'Home'
         }, {
-            route: 'counter',
-            name: 'counter',
-            settings: { icon: 'education' },
-            moduleId: PLATFORM.moduleName('../counter/counter'),
-            nav: true,
-            title: 'Counter'
-        }, {
-            route: 'fetch-data',
-            name: 'fetchdata',
+            route: 'medical/list',
+            name: 'MedicalProfessionalList',
             settings: { icon: 'th-list' },
-            moduleId: PLATFORM.moduleName('../fetchdata/fetchdata'),
+            moduleId: PLATFORM.moduleName('../MedicalProfessionals/list'),
             nav: true,
-            title: 'Fetch data'
+            title: 'Medical Professional List'
+        },{
+            route: 'medical/create',
+            name: 'MedicalProfessionalList',
+            settings: { icon: 'th-list' },
+            moduleId: PLATFORM.moduleName('../MedicalProfessionals/create'),
+            nav: true,
+            title: 'Medical Professional Create'
+        }, {
+                route: 'medical/detail/:id/',
+            name: 'MedicalProfessionalList',
+            moduleId: PLATFORM.moduleName('../MedicalProfessionals/detail'),
+            nav: false,
+            title: 'Medical Professional Detail'
         }]);
 
         this.router = router;

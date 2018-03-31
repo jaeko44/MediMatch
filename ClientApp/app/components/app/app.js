@@ -3,7 +3,7 @@ var App = /** @class */ (function () {
     function App() {
     }
     App.prototype.configureRouter = function (config, router) {
-        config.title = 'MediMatch_Modern';
+        config.title = 'MediMatchRMIT';
         config.map([{
                 route: ['', 'home'],
                 name: 'home',
@@ -12,19 +12,25 @@ var App = /** @class */ (function () {
                 nav: true,
                 title: 'Home'
             }, {
-                route: 'counter',
-                name: 'counter',
-                settings: { icon: 'education' },
-                moduleId: PLATFORM.moduleName('../counter/counter'),
-                nav: true,
-                title: 'Counter'
-            }, {
-                route: 'fetch-data',
-                name: 'fetchdata',
+                route: 'medical/list',
+                name: 'MedicalProfessionalList',
                 settings: { icon: 'th-list' },
-                moduleId: PLATFORM.moduleName('../fetchdata/fetchdata'),
+                moduleId: PLATFORM.moduleName('../MedicalProfessionals/list'),
                 nav: true,
-                title: 'Fetch data'
+                title: 'Medical Professional List'
+            }, {
+                route: 'medical/create',
+                name: 'MedicalProfessionalList',
+                settings: { icon: 'th-list' },
+                moduleId: PLATFORM.moduleName('../MedicalProfessionals/create'),
+                nav: true,
+                title: 'Medical Professional Create'
+            }, {
+                route: 'medical/detail/:id/',
+                name: 'MedicalProfessionalList',
+                moduleId: PLATFORM.moduleName('../MedicalProfessionals/detail'),
+                nav: false,
+                title: 'Medical Professional Detail'
             }]);
         this.router = router;
     };
