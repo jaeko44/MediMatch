@@ -15,7 +15,9 @@ npm install
 
 dotnet restore
 
-dotnet migrate
+Add-Migration SyncDB
+
+Update-Database
 
 - Open Project in Visual Studio
 

@@ -10,7 +10,7 @@ module.exports = (env) => {
         entry: { 'app': 'aurelia-bootstrapper' },
         resolve: {
             extensions: ['.ts', '.js'],
-            modules: ['ClientApp', 'node_modules'],
+            modules: ['ClientApp', 'node_modules']
         },
         output: {
             path: path.resolve(bundleOutputDir),
@@ -22,7 +22,8 @@ module.exports = (env) => {
                 { test: /\.ts$/i, include: /ClientApp/, use: 'ts-loader?silent=true' },
                 { test: /\.html$/i, use: 'html-loader' },
                 { test: /\.css$/i, use: isDevBuild ? 'css-loader' : 'css-loader?minimize' },
-                { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
+                { test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/
+                , loader: 'url?limit=100000&name=[name].[ext]' }
             ]
         },
         plugins: [
@@ -41,4 +42,4 @@ module.exports = (env) => {
             new webpack.optimize.UglifyJsPlugin()
         ])
     }];
-}
+};
