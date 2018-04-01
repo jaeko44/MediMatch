@@ -19,14 +19,14 @@ namespace MediMatchRMIT.Controllers
             _context = context;
         }
 
-        // GET: MedicalProfessionals1
+        // GET: MedicalProfessionalsMVC
         public async Task<IActionResult> Index()
         {
             return View(await _context.MedicalProfessional.ToListAsync());
         }
 
-        // GET: MedicalProfessionals1/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: MedicalProfessionalsMVC/Details/5
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -34,7 +34,7 @@ namespace MediMatchRMIT.Controllers
             }
 
             var medicalProfessional = await _context.MedicalProfessional
-                .SingleOrDefaultAsync(m => m.MedicalId == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (medicalProfessional == null)
             {
                 return NotFound();
@@ -43,21 +43,22 @@ namespace MediMatchRMIT.Controllers
             return View(medicalProfessional);
         }
 
-        // GET: MedicalProfessionals1/Create
+        // GET: MedicalProfessionalsMVC/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: MedicalProfessionals1/Create
+        // POST: MedicalProfessionalsMVC/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MedicalId,FacilityName,LastName,FirstMidName,Notes,Website,Email,PhoneNumber")] MedicalProfessional medicalProfessional)
+        public async Task<IActionResult> Create([Bind("Id,FirstMidName,LastName,ServiceCategory,FacilityId,Notes,Email,PhoneNumber")] MedicalProfessional medicalProfessional)
         {
             if (ModelState.IsValid)
             {
+                medicalProfessional.Id = Guid.NewGuid();
                 _context.Add(medicalProfessional);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -65,15 +66,15 @@ namespace MediMatchRMIT.Controllers
             return View(medicalProfessional);
         }
 
-        // GET: MedicalProfessionals1/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: MedicalProfessionalsMVC/Edit/5
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var medicalProfessional = await _context.MedicalProfessional.SingleOrDefaultAsync(m => m.MedicalId == id);
+            var medicalProfessional = await _context.MedicalProfessional.SingleOrDefaultAsync(m => m.Id == id);
             if (medicalProfessional == null)
             {
                 return NotFound();
@@ -81,14 +82,14 @@ namespace MediMatchRMIT.Controllers
             return View(medicalProfessional);
         }
 
-        // POST: MedicalProfessionals1/Edit/5
+        // POST: MedicalProfessionalsMVC/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MedicalId,FacilityName,LastName,FirstMidName,Notes,Website,Email,PhoneNumber")] MedicalProfessional medicalProfessional)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,FirstMidName,LastName,ServiceCategory,FacilityId,Notes,Email,PhoneNumber")] MedicalProfessional medicalProfessional)
         {
-            if (id != medicalProfessional.MedicalId)
+            if (id != medicalProfessional.Id)
             {
                 return NotFound();
             }
@@ -102,7 +103,7 @@ namespace MediMatchRMIT.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MedicalProfessionalExists(medicalProfessional.MedicalId))
+                    if (!MedicalProfessionalExists(medicalProfessional.Id))
                     {
                         return NotFound();
                     }
@@ -116,8 +117,8 @@ namespace MediMatchRMIT.Controllers
             return View(medicalProfessional);
         }
 
-        // GET: MedicalProfessionals1/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: MedicalProfessionalsMVC/Delete/5
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -125,7 +126,7 @@ namespace MediMatchRMIT.Controllers
             }
 
             var medicalProfessional = await _context.MedicalProfessional
-                .SingleOrDefaultAsync(m => m.MedicalId == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (medicalProfessional == null)
             {
                 return NotFound();
@@ -134,20 +135,20 @@ namespace MediMatchRMIT.Controllers
             return View(medicalProfessional);
         }
 
-        // POST: MedicalProfessionals1/Delete/5
+        // POST: MedicalProfessionalsMVC/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var medicalProfessional = await _context.MedicalProfessional.SingleOrDefaultAsync(m => m.MedicalId == id);
+            var medicalProfessional = await _context.MedicalProfessional.SingleOrDefaultAsync(m => m.Id == id);
             _context.MedicalProfessional.Remove(medicalProfessional);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MedicalProfessionalExists(int id)
+        private bool MedicalProfessionalExists(Guid id)
         {
-            return _context.MedicalProfessional.Any(e => e.MedicalId == id);
+            return _context.MedicalProfessional.Any(e => e.Id == id);
         }
     }
 }

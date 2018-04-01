@@ -11,61 +11,36 @@ namespace MediMatchRMIT.Models
     public class MedicalProfessional
     {
         [Key]
-        public int MedicalId { get; set; }
-        public string FacilityName { get; set; }
-        public string LastName { get; set; }
+        public Guid Id { get; set; }
+        [Required]
         public string FirstMidName { get; set; }
-        public Address Location { get; set; }
-        public HoursActive ServiceActive { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        public string ServiceCategory { get; set; }
+        //Foreign key for Facility
+        //[ForeignKey("Facility")]
+        public int FacilityId { get; set; }
+        public List<HoursActive> HoursActive { get; set; }
         public string Notes { get; set; }
-        public string Website { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public List<Service> Services { get; set; }
-        public List<Facility> Facilities { get; set; }
         public List<Reviews> Feedback { get; set; }
 
-    }
-    public class Service
-    {
-        [Key]
-        public int ServiceId { get; set; }
-        public string ServiceType { get; set; }
-    }
-    public class Facility
-    {
-        [Key]
-        public int ServiceId { get; set; }
-        public string Support { get; set; }
-    }
-    public class Address
-    {
-        [Key]
-        public int AddressId { get; set; }
-        public string PostCode { get; set; }
-        public string Street { get; set; }
-        public string StreetNo { get; set; }
-        public string Suburb { get; set; }
-        public DecimalDegrees Coordinates { get; set; }
-    }
-    public class DecimalDegrees
-    {
-        [Key]
-        public decimal Latitude { get; set; }
-        public decimal Longtitude { get; set; }
     }
     public class HoursActive
     {
         [Key]
-        public int ActiveId { get; set; }
+        public Guid Id { get; set; }
         public string WeekDays { get; set; }
         public string Hours { get; set; }
     }
     public class Reviews
     {
         [Key]
-        public int ReviewId { get; set; }
+        public Guid Id { get; set; }
+        [Required]
         public string Title { get; set; }
+        [Required]
         public int Rating { get; set; }
         public string Comment { get; set; }
         public DateTime Time { get; set; }
