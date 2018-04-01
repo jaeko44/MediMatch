@@ -21,7 +21,7 @@ var App = /** @class */ (function () {
             }, {
                 route: 'medical/create',
                 name: 'MedicalProfessionalList',
-                settings: { icon: 'th-list' },
+                settings: { icon: 'user-add' },
                 moduleId: PLATFORM.moduleName('../MedicalProfessionals/create'),
                 nav: true,
                 title: 'Medical Professional Create'
