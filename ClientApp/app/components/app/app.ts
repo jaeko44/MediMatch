@@ -23,7 +23,7 @@ export class App {
         },{
             route: 'medical/create',
             name: 'MedicalProfessionalList',
-            settings: { icon: 'th-list' },
+            settings: { icon: 'user' },
             moduleId: PLATFORM.moduleName('../MedicalProfessionals/create'),
             nav: true,
             title: 'Medical Professional Create'

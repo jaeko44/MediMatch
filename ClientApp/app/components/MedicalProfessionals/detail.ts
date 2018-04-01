@@ -17,67 +17,32 @@ export class Detail {
                 this.medicalProfessional = data;
             });
     }
+
+    getfeedbackRating() {
+
+    }
 }
 
 interface medicalProfessional {
-    medicalId: number;
-    facilityName: string;
-    lastName: string;
+    id: any;
     firstMidName: string;
-    location: {
-        addressId: number;
-        postCode: number;
-        street: number;
-        streetNo: number;
-        suburb: string;
-        coordinates: {
-            latitude: number;
-            longtitude: number;
-        };
-    };
-    serviceActive: {
-        activeId: number;
-        weekDays: string;
-        hours: string;
-    };
+    lastName: string;
+    serviceCategory: string;
+    /** Foreign key for Facility */
+    facilityId: any;
+    hoursActive: any[];
     notes: string;
-    website: string;
     email: string;
     phoneNumber: string;
-    services: service[];
-    facilities: facility[];
-    feedback: reviews[];
-}
-interface service {
-    serviceId: number;
-    serviceType: string;
-}
-interface facility {
-    serviceId: number;
-    support: string;
-}
-interface address {
-    addressId: number;
-    postCode: number;
-    street: number;
-    streetNo: number;
-    suburb: string;
-    coordinates: {
-        latitude: number;
-        longtitude: number;
-    };
-}
-interface decimalDegrees {
-    latitude: number;
-    longtitude: number;
+    feedback: any[];
 }
 interface hoursActive {
-    activeId: number;
+    id: any;
     weekDays: string;
     hours: string;
 }
 interface reviews {
-    reviewId: number;
+    id: any;
     title: string;
     rating: number;
     comment: string;
