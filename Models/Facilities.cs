@@ -12,12 +12,12 @@ namespace MediMatchRMIT.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public int FacilityId { get; set; }
         [Required]
         public string FacilityName { get; set; }
         [Required]
         public Address Location { get; set; }
         public string Website { get; set; }
+        public string PhoneNo { get; set; }
         public string Email { get; set; }
         public List<MedicalProfessional> MedicalProfessionals { get; set; }
         public List<FacilitySupport> FacilitySupport { get; set; }

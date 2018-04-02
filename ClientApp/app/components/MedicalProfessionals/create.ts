@@ -2,7 +2,7 @@ import { HttpClient, json } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
 
 @inject(HttpClient)
-export class Detail {
+export class CreateMP {
     http: HttpClient;
     public medicalProfessional: medicalProfessional;
     public medicalId: number;

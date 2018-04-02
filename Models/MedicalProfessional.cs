@@ -17,9 +17,10 @@ namespace MediMatchRMIT.Models
         [Required]
         public string LastName { get; set; }
         public string ServiceCategory { get; set; }
+
         //Foreign key for Facility
         //[ForeignKey("Facility")]
-        public int FacilityId { get; set; }
+        public Guid FacilityId { get; set; }
         public List<HoursActive> HoursActive { get; set; }
         public string Notes { get; set; }
         public string Email { get; set; }

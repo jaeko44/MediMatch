@@ -11,7 +11,7 @@ using MediMatchRMIT.Models;
 namespace MediMatchRMIT.Controllers
 {
     [Produces("application/json")]
-    [Route("api/FacilitiesAPI")]
+    [Route("api/Facilities")]
     public class FacilitiesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -38,7 +38,8 @@ namespace MediMatchRMIT.Controllers
             }
 
             var facility = await _context.Facility.SingleOrDefaultAsync(m => m.Id == id);
-
+            Console.WriteLine(facility.Location.Id);
+            //facility.Location = await _context.Address.SingleOrDefaultAsync(m => m.Id == );
             if (facility == null)
             {
                 return NotFound();
@@ -86,6 +87,8 @@ namespace MediMatchRMIT.Controllers
         [HttpPost]
         public async Task<IActionResult> PostFacility([FromBody] Facility facility)
         {
+            facility.Id = Guid.NewGuid();
+            facility.Location.Id = Guid.NewGuid();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
