@@ -16,23 +16,43 @@ export class App {
         }, {
             route: 'medical/list',
             name: 'MedicalProfessionalList',
-            settings: { icon: 'th-list' },
+            settings: { icon: 'address-book' },
             moduleId: PLATFORM.moduleName('../MedicalProfessionals/list'),
             nav: true,
             title: 'Medical Professional List'
         },{
             route: 'medical/create',
-            name: 'MedicalProfessionalList',
-            settings: { icon: 'user' },
+            name: 'MedicalProfessionalCreate',
+            settings: { icon: 'user-md' },
             moduleId: PLATFORM.moduleName('../MedicalProfessionals/create'),
             nav: true,
             title: 'Medical Professional Create'
         }, {
                 route: 'medical/detail/:id/',
-            name: 'MedicalProfessionalList',
+            name: 'MedicalProfessionalDetails',
             moduleId: PLATFORM.moduleName('../MedicalProfessionals/detail'),
             nav: false,
             title: 'Medical Professional Detail'
+        }, {
+            route: 'facilities/list',
+            name: 'FacilitiesList',
+            settings: { icon: 'building' },
+            moduleId: PLATFORM.moduleName('../Facilities/list'),
+            nav: true,
+            title: 'Facilities List'
+        },{
+            route: 'facilities/create',
+            name: 'FacilitiesList',
+            settings: { icon: 'plus-square' },
+            moduleId: PLATFORM.moduleName('../Facilities/create'),
+            nav: true,
+            title: 'Facilities Create'
+        }, {
+                route: 'facilities/detail/:id/',
+            name: 'FacilitiesList',
+            moduleId: PLATFORM.moduleName('../Facilities/detail'),
+            nav: false,
+            title: 'Facilities Detail'
         }]);
 
         this.router = router;

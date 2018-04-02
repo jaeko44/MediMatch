@@ -16,7 +16,7 @@
                 <ul class="nav navbar-nav">
                     <li repeat.for = "row of router.navigation" class="${ row.isActive ? 'link-active' : '' }" >
                         <a href.bind = "row.href">
-                            <span class="glyphicon glyphicon-${ row.settings.icon }"></span> ${ row.title }
+                            <span class="fa fa-${ row.settings.icon }"></span> ${ row.title }
                         </a>
                     </li>
                 </ul>

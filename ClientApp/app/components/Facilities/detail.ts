@@ -1,24 +1,32 @@
-﻿import { HttpClient } from 'aurelia-fetch-client';
+import { HttpClient } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
 
 @inject(HttpClient)
-export class ListFacilities {
-    public Facilities: facility[];
+export class DetailFacility {
+    http: HttpClient;
+    public facility: facility[];
+    public medicalId: number;
 
     constructor(http: HttpClient) {
-        http.fetch('api/Facilities')
+        this.http = http;
+    }
+    activate(params: { id: string; }) {
+        this.http.fetch('api/Facility/' + params.id)
             .then(result => result.json() as Promise<facility[]>)
             .then(data => {
-                this.Facilities = data;
+                this.facility = data;
             });
+    }
+
+    getfeedbackRating() {
+
     }
 }
 
 
 interface facility {
     id: any;
-    facilityName: string;   
-    locationId: any;
+    facilityName: string;
     location: {
         id: any;
         postCode: string;

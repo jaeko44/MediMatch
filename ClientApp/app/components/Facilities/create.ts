@@ -1,24 +1,38 @@
-﻿import { HttpClient } from 'aurelia-fetch-client';
+import { HttpClient, json } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
 
 @inject(HttpClient)
-export class ListFacilities {
-    public Facilities: facility[];
+export class CreateMP {
+    http: HttpClient;
+    public facility: any;
+    public medicalId: number;
 
     constructor(http: HttpClient) {
-        http.fetch('api/Facilities')
-            .then(result => result.json() as Promise<facility[]>)
-            .then(data => {
-                this.Facilities = data;
-            });
+        this.http = http;
+    }
+
+    CreateFacility() {
+        console.log(this.facility);
+        this.http.fetch('api/Facilities', {
+            method: 'post',
+            body: JSON.stringify(this.facility),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        })
+            .then(response => {
+                // do whatever here
+                delete this.facility;
+                console.log(response);
+            }).catch(error => console.log(error));
     }
 }
 
 
 interface facility {
     id: any;
-    facilityName: string;   
-    locationId: any;
+    facilityName: string;
+    phoneNo : string;
     location: {
         id: any;
         postCode: string;

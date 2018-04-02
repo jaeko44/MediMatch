@@ -1,1 +1,31 @@
-﻿
+﻿<template>
+        <h1>Facilities List</h1>
+    
+        <p>This component demonstrates fetching facilities the server.</p>
+    
+        <p if.bind="!Facilities"><em>Loading...</em></p>
+    
+        <table if.bind="Facilities" class="table">
+            <thead>
+                <tr>
+                    <th>Facility Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Website</th>
+                    <th><Address></Address></th>
+                    <th>Detail</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="facility of Facilities">
+                    <td>${ facility.facilityName }</td>
+                    <td>${ facility.email }</td>
+                    <td>${ facility.phoneNumber }</td>
+                    <td>${ facility.website }</td>
+                    <td>${ facility.Location.StreetNo } ${ facility.Location.Street}, ${facility.Location.Suburb} </td>
+                    <td><a href="#/facility/detail/${facility.id}">View</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+    
