@@ -1,6 +1,6 @@
 input.hidden {
-    position: absolute;
-    left: -9999px;
+    visibility:hidden;
+    display:none;
 }
 
 #profile-image1 {

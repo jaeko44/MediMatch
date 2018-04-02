@@ -26,5 +26,7 @@ namespace MediMatchRMIT.Data
         public DbSet<MediMatchRMIT.Models.MedicalProfessional> MedicalProfessional { get; set; }
 
         public DbSet<MediMatchRMIT.Models.Facility> Facility { get; set; }
+
+        public DbSet<MediMatchRMIT.Models.Address> Address { get; set; }
     }
 }
