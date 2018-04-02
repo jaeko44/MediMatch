@@ -7,6 +7,7 @@
     <base href="~/" />
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
@@ -33,7 +34,8 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="App">Application</a></li>
-                    <li><a asp-area="" asp-controller="MedicalProfessionalsMVC" asp-action="Index">Medical Proefssional MVC</a></li>
+                    <li><a asp-area="" asp-controller="MedicalProfessionalsMVC" asp-action="Index">Medical Professional MVC</a></li>
+                    <li><a asp-area="" asp-controller="FacilitiesMVC" asp-action="Index">Facilities MVC</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
