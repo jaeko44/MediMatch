@@ -38,8 +38,7 @@ namespace MediMatchRMIT.Controllers
             }
 
             var facility = await _context.Facility.SingleOrDefaultAsync(m => m.Id == id);
-            Console.WriteLine(facility.Location.Id);
-            //facility.Location = await _context.Address.SingleOrDefaultAsync(m => m.Id == );
+            //facility.Location = await _context.Address.SingleOrDefaultAsync(m => m.Id == facility.LocationId);
             if (facility == null)
             {
                 return NotFound();
@@ -87,8 +86,8 @@ namespace MediMatchRMIT.Controllers
         [HttpPost]
         public async Task<IActionResult> PostFacility([FromBody] Facility facility)
         {
-            facility.Id = Guid.NewGuid();
-            facility.Location.Id = Guid.NewGuid();
+            //facility.Id = Guid.NewGuid();
+            //facility.Location.Id = Guid.NewGuid();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

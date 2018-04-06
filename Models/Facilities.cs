@@ -10,6 +10,7 @@ namespace MediMatchRMIT.Models
 {
     public class Facility
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
         [Required]
@@ -24,6 +25,7 @@ namespace MediMatchRMIT.Models
     }
     public class Address
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
         public string PostCode { get; set; }
@@ -32,18 +34,27 @@ namespace MediMatchRMIT.Models
         public string StreetNo { get; set; }
         public string Suburb { get; set; }
         public DecimalDegrees Coordinates { get; set; }
+        public Facility Facility { get; set; }
+        public Guid FacilityId { get; set; }
+
     }
     public class DecimalDegrees
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longtitude { get; set; }
+        public Address Address { get; set; }
+        public Guid AddressId { get; set; }
     }
     public class FacilitySupport {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
         public string SupportName { get; set; }
         public string SupportDescription { get; set; }
+        public Facility Facility { get; set; }
+        public Guid FacilityId { get; set; }
     }
 }
