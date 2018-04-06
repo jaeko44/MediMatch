@@ -27,30 +27,55 @@ export class CreateMP {
             }).catch (error => console.log(error));
     }
 }
-
 interface medicalProfessional {
     id: any;
     firstMidName: string;
     lastName: string;
     serviceCategory: string;
-    /** Foreign key for Facility */
-    facilityId: any;
     hoursActive: any[];
     notes: string;
     email: string;
     phoneNumber: string;
-    feedback: any[];
+    reviews: any[];
+    facilityId: any;
+    facility: {
+        id: any;
+        facilityName: string;
+        location: {
+            id: any;
+            postCode: string;
+            street: string;
+            streetNo: string;
+            suburb: string;
+            coordinates: {
+                id: any;
+                latitude: number;
+                longtitude: number;
+                address: any;
+                addressId: any;
+            };
+            facility: any;
+            facilityId: any;
+        };
+        website: string;
+        phoneNo: string;
+        email: string;
+        medicalProfessionals: any[];
+        facilitySupport: any[];
+    };
 }
 interface hoursActive {
     id: any;
     weekDays: string;
     hours: string;
+    medicalProfessionalId: any;
 }
-interface reviews {
+interface review {
     id: any;
     title: string;
     rating: number;
     comment: string;
     time: Date;
     userId: number;
+    medicalProfessionalId: any;
 }

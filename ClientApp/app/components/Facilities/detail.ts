@@ -23,7 +23,6 @@ export class DetailFacility {
     }
 }
 
-
 interface facility {
     id: any;
     facilityName: string;
@@ -40,10 +39,11 @@ interface facility {
         };
     };
     website: string;
+    phoneNo: string;
     email: string;
     medicalProfessionals: any[];
+    facilitySupport: any[];
 }
-
 interface address {
     id: any;
     postCode: string;
@@ -60,4 +60,9 @@ interface decimalDegrees {
     id: any;
     latitude: number;
     longtitude: number;
+}
+interface facilitySupport {
+    id: any;
+    supportName: string;
+    supportDescription: string;
 }

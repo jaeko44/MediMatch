@@ -1,3 +1,78 @@
 <template>
+    <require from="./detail.css"></require>
+    <h1>Facility Detail</h1>
 
+    <p>This component demonstrates fetching via UI Parameter.</p>
+
+    <p if.bind="!facility"><em>Loading...</em></p>
+
+    <div if.bind="facility" class="container">
+        <div class="row">
+            <div class="col-md-7 ">
+                <div class="panel panel-default">
+                    <div class="panel-heading">  <h4>Facility Details</h4></div>
+                    <div class="panel-body">
+
+                        <div class="box box-info">
+
+                            <div class="box-body">
+                                <div class="col-sm-6">
+                                    <div class="col-sm-6">
+                                        <h4 style="color:#00b1b1;">${ facility.facilityName }</h4>
+                                        <span>${ facility.location.suburb }</span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <hr style="margin:5px 0 5px 0;">
+
+
+                                    <div class="col-sm-5 col-xs-6 tital ">Address:</div><div class="col-sm-7 col-xs-6 ">
+                                        ${ facility.location.streetNo },
+                                        ${ facility.location.street },
+                                        ${ facility.location.suburb },
+                                        <!-- ${ facility.location.state } -->
+                                        ${ facility.location.postCode}
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Email:</div><div class="col-sm-7">${ facility.email }</div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Phone Number:</div><div class="col-sm-7">${ facility.phoneNo }</div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Facility Name:</div><div class="col-sm-7">${ facility.facilityName }</div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Website:</div><div class="col-sm-7">${ facility.website }</div>
+
+                                    <div repeat.for="support of facility.facilitySupport">
+                                        <h4>${support.supportName} </h4>
+                                        <p>${support.supportDescription}</p>
+                                    </div>
+                                    <div repeat.for="medicalProfessional of facility.medicalProfessionals">
+                                            <h4>${medicalProfessional.firstName} ${medicalProfessional.lastName}</h4>
+                                        </div>
+                                    <div class="clearfix"></div>
+
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div if.bind="facility.feedback" repeat.for="review of feedback">
+            title: string;
+            rating: number;
+            comment: string;
+            time: Date;
+            userId: number;
+        </div>
+    </div>
+    </div>
 </template>
