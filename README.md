@@ -33,7 +33,7 @@ OR
 
 ```
 
-Main Directory Purposes:
+## Main Directory Purposes:
 
 ClientApp/ - This holds the Application Logic for our Front-End - but not our whole view.
 
