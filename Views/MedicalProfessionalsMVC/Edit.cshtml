@@ -24,9 +24,9 @@
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ServiceCategory" class="control-label"></label>
-                <input asp-for="ServiceCategory" class="form-control" />
-                <span asp-validation-for="ServiceCategory" class="text-danger"></span>
+                <label asp-for="Services[0].Category" class="control-label"></label>
+                <input asp-for="Services[0].Category" class="form-control" />
+                <span asp-validation-for="Services[0].Category" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FacilityId" class="control-label"></label>
