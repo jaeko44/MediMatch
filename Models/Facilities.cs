@@ -34,9 +34,6 @@ namespace MediMatchRMIT.Models
         public string StreetNo { get; set; }
         public string Suburb { get; set; }
         public DecimalDegrees Coordinates { get; set; }
-        public Facility Facility { get; set; }
-        public Guid FacilityId { get; set; }
-
     }
     public class DecimalDegrees
     {
@@ -45,8 +42,6 @@ namespace MediMatchRMIT.Models
         public Guid Id { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longtitude { get; set; }
-        public Address Address { get; set; }
-        public Guid AddressId { get; set; }
     }
     public class FacilitySupport {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
