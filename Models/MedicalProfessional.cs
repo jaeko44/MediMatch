@@ -17,12 +17,12 @@ namespace MediMatchRMIT.Models
         public string FirstMidName { get; set; }
         [Required]
         public string LastName { get; set; }
-        public List<Service> Services { get; set; } 
-        public List<HoursActive> HoursActive { get; set; }
+        public ICollection<Service> Services { get; set; } 
+        public ICollection<HoursActive> HoursActive { get; set; }
         public string Notes { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public List<Review> Reviews { get; set; }
+        public ICollection<Review> Reviews { get; set; }
         public Facility Facility { get; set; }
         public Guid FacilityId { get; set; }
 

@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
             <label for="serviceType">Service Type</label>
-            <select class="form-control" id="serviceType" value.bind="medicalProfessional.serviceCategory">
+            <select class="form-control" id="serviceType" value.bind="medicalProfessional.services.category"
                 <option>General Practice</option>
                 <option>Dentists</option>
                 <option>Pharmacy</option>
@@ -32,6 +32,21 @@
                 <option>Hospitals</option>
             </select>
         </div>
+
+
+        <!-- We need to add some logic that allows us to search medicalProfessional.services[0].category with all available sub categories,
+
+        for example, a dentist should have a few sub categories that the user can select under 'Secondary Services'
+
+           <div class="form-group">
+                <label for="serviceType">Secondary Services</label>
+                <select class="form-control" id="serviceType" value.bind="medicalProfessional.services[1].category"
+                   <option>LOGIC TO RETRIEVE SUB CATEGORIES</option>
+                </select>
+            </div>
+        -->
+
+
         <div class="form-group">
             <label for="notes">Notes</label>
             <textarea class="form-control" id="notes" value.bind="medicalProfessional.notes" rows="3"></textarea>

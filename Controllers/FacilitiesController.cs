@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MediMatchRMIT.Data;
 using MediMatchRMIT.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MediMatchRMIT.Controllers
 {
@@ -21,14 +22,14 @@ namespace MediMatchRMIT.Controllers
             _context = context;
         }
 
-        // GET: api/FacilitiesAPI
+        // GET: api/Facilities
         [HttpGet]
         public IEnumerable<Facility> GetFacility()
         {
             return _context.Facility;
         }
 
-        // GET: api/FacilitiesAPI/5
+        // GET: api/Facilities/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetFacility([FromRoute] Guid id)
         {
@@ -47,7 +48,8 @@ namespace MediMatchRMIT.Controllers
             return Ok(facility);
         }
 
-        // PUT: api/FacilitiesAPI/5
+        [Authorize]
+        // PUT: api/Facilities/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFacility([FromRoute] Guid id, [FromBody] Facility facility)
         {
@@ -83,6 +85,7 @@ namespace MediMatchRMIT.Controllers
         }
 
         // POST: api/FacilitiesAPI
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostFacility([FromBody] Facility facility)
         {
@@ -100,6 +103,7 @@ namespace MediMatchRMIT.Controllers
         }
 
         // DELETE: api/FacilitiesAPI/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFacility([FromRoute] Guid id)
         {

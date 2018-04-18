@@ -17,11 +17,13 @@ namespace MediMatchRMIT.Models
         public string FacilityName { get; set; }
         [Required]
         public Address Location { get; set; }
+        //Foreign Key for Location
+        public Guid LocationId { get; set; }
         public string Website { get; set; }
         public string PhoneNo { get; set; }
         public string Email { get; set; }
-        public List<MedicalProfessional> MedicalProfessionals { get; set; }
-        public List<FacilitySupport> FacilitySupport { get; set; }
+        public ICollection<MedicalProfessional> MedicalProfessionals { get; set; }
+        public ICollection<FacilitySupport> FacilitySupport { get; set; }
     }
     public class Address
     {

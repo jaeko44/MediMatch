@@ -35,6 +35,9 @@ OR
 
 Main Directory Purposes:
 
+```
+
+
 ClientApp/ - This holds the Application Logic for our Front-End - but not our whole view.
 
 Controllers/ - This holds the Back-End Controller/ - Logic for Our API & MVC Application.
@@ -48,3 +51,5 @@ Models/ - This holds our Objects Data Models and what Data they will store in th
 Views/ - This holds our MVC Views which will be used for Authentication, and as a shell around ClientApp.
 
 wwwroot/ - This contains our third party JavaScript & CSS Libraries.
+
+```
