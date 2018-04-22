@@ -86,8 +86,8 @@ namespace MediMatchRMIT.Controllers
         [HttpPost]
         public async Task<IActionResult> PostMedicalProfessional([FromBody] MedicalProfessional medicalProfessional)
         {
-            //medicalProfessional.Id = Guid.NewGuid();
-            //medicalProfessional.FacilityId = Guid.NewGuid(); // Put a temporary random ID for facility.
+            medicalProfessional.Id = Guid.NewGuid();
+            medicalProfessional.FacilityId = Guid.NewGuid(); // Put a temporary random ID for facility.
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

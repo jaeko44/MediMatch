@@ -31,13 +31,12 @@ interface medicalProfessional {
     id: any;
     firstMidName: string;
     lastName: string;
-    serviceCategory: string;
+    services: any[];
     hoursActive: any[];
     notes: string;
     email: string;
     phoneNumber: string;
     reviews: any[];
-    facilityId: any;
     facility: {
         id: any;
         facilityName: string;
@@ -51,24 +50,25 @@ interface medicalProfessional {
                 id: any;
                 latitude: number;
                 longtitude: number;
-                address: any;
-                addressId: any;
             };
-            facility: any;
-            facilityId: any;
         };
+        locationId: any;
         website: string;
         phoneNo: string;
         email: string;
         medicalProfessionals: any[];
         facilitySupport: any[];
     };
+    facilityId: any;
+}
+interface service {
+    id: any;
+    category: string;
 }
 interface hoursActive {
     id: any;
     weekDays: string;
     hours: string;
-    medicalProfessionalId: any;
 }
 interface review {
     id: any;
@@ -78,4 +78,38 @@ interface review {
     time: Date;
     userId: number;
     medicalProfessionalId: any;
+    medicalProfessional: {
+        id: any;
+        firstMidName: string;
+        lastName: string;
+        services: any[];
+        hoursActive: any[];
+        notes: string;
+        email: string;
+        phoneNumber: string;
+        reviews: any[];
+        facility: {
+            id: any;
+            facilityName: string;
+            location: {
+                id: any;
+                postCode: string;
+                street: string;
+                streetNo: string;
+                suburb: string;
+                coordinates: {
+                    id: any;
+                    latitude: number;
+                    longtitude: number;
+                };
+            };
+            locationId: any;
+            website: string;
+            phoneNo: string;
+            email: string;
+            medicalProfessionals: any[];
+            facilitySupport: any[];
+        };
+        facilityId: any;
+    };
 }
