@@ -19,7 +19,7 @@
                     @Html.DisplayNameFor(model => model.LastName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Services[0].Category)
+                    Services
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Notes)
@@ -43,7 +43,10 @@
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Services[0].Category)
+                @foreach (var service in item.Services)
+                {
+                   @Html.DisplayFor(modelItem => service.Category)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Notes)

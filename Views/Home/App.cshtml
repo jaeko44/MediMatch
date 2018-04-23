@@ -8,3 +8,6 @@
     <script type="text/javascript" src="~/dist/vendor.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/dist/app.js" asp-append-version="true"></script>
 }
+@{
+    var isLoggedIn = Context.Request.Cookies.ContainsKey(".AspNetCore.Identity.Application");
+}
