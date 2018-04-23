@@ -22,14 +22,21 @@ namespace MediMatchRMIT.Controllers
             _context = context;
         }
 
-        // GET: api/Facilities
+        /// <summary>
+        /// Gets All Facilities
+        /// GET: api/Facilities
+        /// </summary>
         [HttpGet]
         public IEnumerable<Facility> GetFacility()
         {
             return _context.Facility;
         }
 
-        // GET: api/Facilities/5
+        /// <summary>
+        /// Gets a Facility by ID
+        /// GET: api/Facilities/5
+        /// </summary>
+        /// <param name="id">The ID of the facility to retrieve.</param>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetFacility([FromRoute] Guid id)
         {
@@ -39,7 +46,7 @@ namespace MediMatchRMIT.Controllers
             }
 
             var facility = await _context.Facility.SingleOrDefaultAsync(m => m.Id == id);
-            //facility.Location = await _context.Address.SingleOrDefaultAsync(m => m.Id == facility.LocationId);
+            facility.Location = await _context.Address.SingleOrDefaultAsync(m => m.Id == facility.LocationId);
             if (facility == null)
             {
                 return NotFound();

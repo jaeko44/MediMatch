@@ -10,27 +10,27 @@
         </div>
         <div class="form-group">
                 <label for="facilityNo">Phone Number</label>
-                <input type="text" value.bind="facility.number" id="facilityNo" placeholder="+61 0420200">
+                <input type="text" value.bind="facility.phoneNo" id="facilityNo" autocomplete='tel' placeholder="+61 0420200">
             </div>
         <div class="form-group">
             <label for="email">Public Email</label>
-            <input type="text" value.bind="facility.email" id="email" placeholder="email@domain.com">
+            <input type="text" value.bind="facility.email" id="email" autocomplete='email' placeholder="email@domain.com">
         </div>
         <div class="form-group">
             <label for="location.streetNo">Street No</label>
-            <input type="text" value.bind="facility.Location.StreetNo" id="location.streetNo" placeholder="Street No">
+            <input type="text" value.bind="facility.Location.StreetNo" id="location.streetNo" autocomplete='address-line1' placeholder="Street No">
         </div>
         <div class="form-group">
             <label for="facility.location.street">Street</label>
-            <input type="text" value.bind="facility.Location.Street" id="location.street" placeholder="Street">
+            <input type="text" value.bind="facility.Location.Street" id="location.street" autocomplete='address-line2' placeholder="Street">
         </div>
         <div class="form-group">
             <label for="location.postCode">Post Code</label>
-            <input type="text" value.bind="facility.Location.PostCode" id="location.postCode" placeholder="Post Code">
+            <input type="text" value.bind="facility.Location.PostCode" id="location.postCode" autocomplete='postal-code' placeholder="Post Code">
         </div>
         <div class="form-group">
             <label for="location.suburb">Suburb</label>
-            <input type="text" value.bind="facility.Location.Suburb" id="location.suburb" placeholder="Suburb">
+            <input type="text" value.bind="facility.Location.Suburb" id="location.suburb" autocomplete='address-level2' placeholder="Suburb">
         </div>
         <div class="form-group">
             <label for="website">Website</label>

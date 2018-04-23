@@ -4,15 +4,15 @@ import { inject } from 'aurelia-framework';
 @inject(HttpClient)
 export class DetailFacility {
     http: HttpClient;
-    public facility: facility[];
+    public facility: facility;
     public medicalId: number;
 
     constructor(http: HttpClient) {
         this.http = http;
     }
     activate(params: { id: string; }) {
-        this.http.fetch('api/Facility/' + params.id)
-            .then(result => result.json() as Promise<facility[]>)
+        this.http.fetch('api/Facilities/' + params.id)
+            .then(result => result.json() as Promise<facility>)
             .then(data => {
                 this.facility = data;
             });

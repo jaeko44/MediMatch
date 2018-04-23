@@ -1,13 +1,18 @@
 import { HttpClient, json } from 'aurelia-fetch-client';
-import { inject } from 'aurelia-framework';
+import { inject, Aurelia } from 'aurelia-framework';
+import { Authentication } from '../authentication'
 
-@inject(HttpClient)
+
+@inject(HttpClient, Authentication)
 export class CreateMP {
     http: HttpClient;
     public facility: any;
     public medicalId: number;
 
-    constructor(http: HttpClient) {
+    constructor(http: HttpClient, authentication: Authentication) {
+        console.log("Constructor: Create Facility Triggered");
+        var auth_token = localStorage.getItem("auth_token");
+        var allCookies = document.cookie;
         this.http = http;
     }
 

@@ -3,10 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>aspnet-MediMatchRMIT-78778A2D-F400-42BA-B0AE-B096E05945A6</UserSecretsId>
-    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>App_Data/XmlDocument.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\authentication.ts" />
     <None Remove="ClientApp\app\components\MedicalProfessionals\create.js" />
     <None Remove="ClientApp\app\components\MedicalProfessionals\create.js.map" />
     <None Remove="ClientApp\app\components\MedicalProfessionals\detail.js" />
@@ -17,6 +22,9 @@
 
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.4" />
+    <PackageReference Include="Microsoft.AspNet.WebApi" Version="5.2.4" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.HelpPage" Version="5.2.4" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" PrivateAssets="All" />
@@ -29,13 +37,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Models\Facilities.cs.d.ts">
+      <DependentUpon>Facilities.cs</DependentUpon>
+    </None>
     <None Update="Program.cs.d.ts">
       <DependentUpon>Program.cs</DependentUpon>
+    </None>
+    <None Update="Startup.cs.d.ts">
+      <DependentUpon>Startup.cs</DependentUpon>
     </None>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\authentication.ts" />
   </ItemGroup>
 
 </Project>

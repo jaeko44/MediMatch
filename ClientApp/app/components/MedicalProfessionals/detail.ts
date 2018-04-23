@@ -4,7 +4,7 @@ import { inject } from 'aurelia-framework';
 @inject(HttpClient)
 export class DetailMP {
     http: HttpClient;
-    public medicalProfessional: medicalProfessional[];
+    public medicalProfessional: medicalProfessional;
     public medicalId: number;
 
     constructor(http: HttpClient) {
@@ -12,7 +12,7 @@ export class DetailMP {
     }
     activate(params: { id: string; }) {
         this.http.fetch('api/MedicalProfessionals/' + params.id)
-            .then(result => result.json() as Promise<medicalProfessional[]>)
+            .then(result => result.json() as Promise<medicalProfessional>)
             .then(data => {
                 this.medicalProfessional = data;
             });

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MediMatchRMIT</name>
+    </assembly>
+    <members>
+        <member name="M:MediMatchRMIT.Controllers.FacilitiesController.GetFacility">
+            <summary>
+            Gets All Facilities
+            GET: api/Facilities
+            </summary>
+        </member>
+        <member name="M:MediMatchRMIT.Controllers.FacilitiesController.GetFacility(System.Guid)">
+            <summary>
+            Gets a Facility by ID
+            GET: api/Facilities/5
+            </summary>
+            <param name="id">The ID of the facility to retrieve.</param>
+        </member>
+    </members>
+</doc>
