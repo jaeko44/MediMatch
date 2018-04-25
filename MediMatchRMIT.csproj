@@ -37,9 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Models\Facilities.cs.d.ts">
-      <DependentUpon>Facilities.cs</DependentUpon>
-    </None>
     <None Update="Program.cs.d.ts">
       <DependentUpon>Program.cs</DependentUpon>
     </None>

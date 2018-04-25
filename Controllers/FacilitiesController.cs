@@ -92,7 +92,6 @@ namespace MediMatchRMIT.Controllers
         }
 
         // POST: api/FacilitiesAPI
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostFacility([FromBody] Facility facility)
         {

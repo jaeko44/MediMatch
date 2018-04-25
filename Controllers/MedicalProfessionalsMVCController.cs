@@ -22,7 +22,8 @@ namespace MediMatchRMIT.Controllers
         // GET: MedicalProfessionalsMVC
         public async Task<IActionResult> Index()
         {
-            return View(await _context.MedicalProfessional.ToListAsync());
+            var applicationDbContext = _context.MedicalProfessional.Include(m => m.Facility).Include(m => m.Service);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: MedicalProfessionalsMVC/Details/5
@@ -34,6 +35,8 @@ namespace MediMatchRMIT.Controllers
             }
 
             var medicalProfessional = await _context.MedicalProfessional
+                .Include(m => m.Facility)
+                .Include(m => m.Service)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (medicalProfessional == null)
             {
@@ -46,6 +49,8 @@ namespace MediMatchRMIT.Controllers
         // GET: MedicalProfessionalsMVC/Create
         public IActionResult Create()
         {
+            ViewData["FacilityId"] = new SelectList(_context.Facility, "Id", "FacilityName");
+            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "Id", "Id");
             return View();
         }
 
@@ -54,16 +59,17 @@ namespace MediMatchRMIT.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstMidName,LastName,Services,FacilityId,Notes,Email,PhoneNumber")] MedicalProfessional medicalProfessional)
+        public async Task<IActionResult> Create([Bind("Id,FirstMidName,LastName,ServiceId,Notes,Email,PhoneNumber,FacilityId")] MedicalProfessional medicalProfessional)
         {
             if (ModelState.IsValid)
             {
                 medicalProfessional.Id = Guid.NewGuid();
-                medicalProfessional.FacilityId = Guid.NewGuid();
                 _context.Add(medicalProfessional);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["FacilityId"] = new SelectList(_context.Facility, "Id", "FacilityName", medicalProfessional.FacilityId);
+            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "Id", "Id", medicalProfessional.ServiceId);
             return View(medicalProfessional);
         }
 
@@ -80,6 +86,8 @@ namespace MediMatchRMIT.Controllers
             {
                 return NotFound();
             }
+            ViewData["FacilityId"] = new SelectList(_context.Facility, "Id", "FacilityName", medicalProfessional.FacilityId);
+            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "Id", "Id", medicalProfessional.ServiceId);
             return View(medicalProfessional);
         }
 
@@ -88,7 +96,7 @@ namespace MediMatchRMIT.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,FirstMidName,LastName,FacilityId,Notes,Email,PhoneNumber")] MedicalProfessional medicalProfessional)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,FirstMidName,LastName,ServiceId,Notes,Email,PhoneNumber,FacilityId")] MedicalProfessional medicalProfessional)
         {
             if (id != medicalProfessional.Id)
             {
@@ -115,6 +123,8 @@ namespace MediMatchRMIT.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["FacilityId"] = new SelectList(_context.Facility, "Id", "FacilityName", medicalProfessional.FacilityId);
+            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "Id", "Id", medicalProfessional.ServiceId);
             return View(medicalProfessional);
         }
 
@@ -127,6 +137,8 @@ namespace MediMatchRMIT.Controllers
             }
 
             var medicalProfessional = await _context.MedicalProfessional
+                .Include(m => m.Facility)
+                .Include(m => m.Service)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (medicalProfessional == null)
             {
