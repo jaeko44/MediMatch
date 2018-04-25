@@ -24,12 +24,6 @@
             @Html.DisplayFor(model => model.LastName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ServiceCategory)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ServiceCategory)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Notes)
         </dt>
         <dd>
@@ -46,6 +40,18 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Facility)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Facility.FacilityName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Service)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Service.Id)
         </dd>
     </dl>
     

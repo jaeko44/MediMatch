@@ -19,9 +19,6 @@
                     @Html.DisplayNameFor(model => model.LastName)
                 </th>
                 <th>
-                    Services
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Notes)
                 </th>
                 <th>
@@ -30,6 +27,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.PhoneNumber)
                 </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Facility)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -43,12 +46,6 @@
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @foreach (var service in item.Services)
-                {
-                   @Html.DisplayFor(modelItem => service.Category)
-                }
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Notes)
             </td>
             <td>
@@ -56,6 +53,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Facility.FacilityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Service.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
