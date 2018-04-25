@@ -1,17 +1,23 @@
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
+import { activationStrategy } from 'aurelia-router';
 
 @inject(HttpClient)
 export class CreateMP {
     http: HttpClient;
-    public medicalProfessional: medicalProfessional;
+    public medicalProfessional: any;
     public medicalId: number;
 
     constructor(http: HttpClient) {
         this.http = http;
+        //let services: any[] = [{ id: 1, category: "General Practitioner" }, { id: 2, category: "Dentist" }];
+        let medic: any = { firstMidName: "Test", lastName: "TestL", id: 1 };
+        //medic.services = services;
+        this.medicalProfessional = medic;
     }
 
     CreateMedicalProfessional() {
+        console.log("Sending the following Medical Professional to Server");
         console.log(this.medicalProfessional);
         this.http.fetch('api/MedicalProfessionals', {
             method: 'post',
@@ -22,94 +28,8 @@ export class CreateMP {
         })
             .then(response => {
                 // do whatever here
-                delete this.medicalProfessional;
+                //delete this.medicalProfessional;
                 console.log(response);
             }).catch (error => console.log(error));
     }
-}
-interface medicalProfessional {
-    id: any;
-    firstMidName: string;
-    lastName: string;
-    services: any[];
-    hoursActive: any[];
-    notes: string;
-    email: string;
-    phoneNumber: string;
-    reviews: any[];
-    facility: {
-        id: any;
-        facilityName: string;
-        location: {
-            id: any;
-            postCode: string;
-            street: string;
-            streetNo: string;
-            suburb: string;
-            coordinates: {
-                id: any;
-                latitude: number;
-                longtitude: number;
-            };
-        };
-        locationId: any;
-        website: string;
-        phoneNo: string;
-        email: string;
-        medicalProfessionals: any[];
-        facilitySupport: any[];
-    };
-    facilityId: any;
-}
-interface service {
-    id: any;
-    category: string;
-}
-interface hoursActive {
-    id: any;
-    weekDays: string;
-    hours: string;
-}
-interface review {
-    id: any;
-    title: string;
-    rating: number;
-    comment: string;
-    time: Date;
-    userId: number;
-    medicalProfessionalId: any;
-    medicalProfessional: {
-        id: any;
-        firstMidName: string;
-        lastName: string;
-        services: any[];
-        hoursActive: any[];
-        notes: string;
-        email: string;
-        phoneNumber: string;
-        reviews: any[];
-        facility: {
-            id: any;
-            facilityName: string;
-            location: {
-                id: any;
-                postCode: string;
-                street: string;
-                streetNo: string;
-                suburb: string;
-                coordinates: {
-                    id: any;
-                    latitude: number;
-                    longtitude: number;
-                };
-            };
-            locationId: any;
-            website: string;
-            phoneNo: string;
-            email: string;
-            medicalProfessionals: any[];
-            facilitySupport: any[];
-        };
-        facilityId: any;
-    };
 }
