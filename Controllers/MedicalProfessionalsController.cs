@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MediMatchRMIT.Data;
 using MediMatchRMIT.Models;
+using System.Net;
 
 namespace MediMatchRMIT.Controllers
 {
@@ -37,7 +38,11 @@ namespace MediMatchRMIT.Controllers
                 return BadRequest(ModelState);
             }
 
-            var medicalProfessional = await _context.MedicalProfessional.SingleOrDefaultAsync(m => m.Id == id);
+            var medicalProfessional = await _context.MedicalProfessional
+                                    .Include(m => m.Facility.Location)
+                                    .Include(m => m.Service)
+                                    .SingleOrDefaultAsync(m => m.Id == id);
+            
 
             if (medicalProfessional == null)
             {
@@ -86,15 +91,26 @@ namespace MediMatchRMIT.Controllers
         [HttpPost]
         public async Task<IActionResult> PostMedicalProfessional([FromBody] MedicalProfessional medicalProfessional)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                _context.MedicalProfessional.Add(medicalProfessional);
+                //Task<Facility> Facility = _context.Facility.FirstOrDefaultAsync(f => f.Id == medicalProfessional.FacilityId);
+                Facility facility = _context.Facility.Find(medicalProfessional.FacilityId);
+                //facility.MedicalProfessionals.Add(medicalProfessional);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetMedicalProfessional", new { id = medicalProfessional.Id }, medicalProfessional);
+            }
+            catch (DbUpdateException DBException)
+            {
+                return null;
             }
 
-            _context.MedicalProfessional.Add(medicalProfessional);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetMedicalProfessional", new { id = medicalProfessional.Id }, medicalProfessional);
         }
 
         // DELETE: api/MedicalProfessionals/5

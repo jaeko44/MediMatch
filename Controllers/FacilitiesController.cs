@@ -45,8 +45,8 @@ namespace MediMatchRMIT.Controllers
                 return BadRequest(ModelState);
             }
 
-            var facility = await _context.Facility.SingleOrDefaultAsync(m => m.Id == id);
-            facility.Location = await _context.Address.SingleOrDefaultAsync(m => m.Id == facility.LocationId);
+            var facility = await _context.Facility.Include(m => m.Location.Coordinates).SingleOrDefaultAsync(m => m.Id == id);
+            //facility.Location = await _context.Address.SingleOrDefaultAsync(m => m.Id == facility.LocationId);
             if (facility == null)
             {
                 return NotFound();
