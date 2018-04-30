@@ -37,7 +37,6 @@ export class Authentication {
     }
     getCookie(name: string) {
         var regexp = new RegExp("(?:^" + name + "|;\s*" + name + ")=(.*?)(?:;|$)", "g");
-        var regexp = new RegExp("(?:^.AspNetCore.Identity.Application|;\s*.AspNetCore.Identity.Application)=(.*?)(?:;|$)", "g")
         var result = regexp.exec(document.cookie);
         return (result === null) ? null : result[1];
     }

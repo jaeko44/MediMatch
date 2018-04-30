@@ -4,6 +4,44 @@
         <name>MediMatchRMIT</name>
     </assembly>
     <members>
+        <member name="P:MediMatchRMIT.Classes.TokenProviderOptions.Path">
+            <summary>
+            The relative request path to listen on.
+            </summary>
+            <remarks>The default path is <c>/token</c>.</remarks>
+        </member>
+        <member name="P:MediMatchRMIT.Classes.TokenProviderOptions.Issuer">
+            <summary>
+             The Issuer (iss) claim for generated tokens.
+            </summary>
+        </member>
+        <member name="P:MediMatchRMIT.Classes.TokenProviderOptions.Audience">
+            <summary>
+            The Audience (aud) claim for the generated tokens.
+            </summary>
+        </member>
+        <member name="P:MediMatchRMIT.Classes.TokenProviderOptions.Expiration">
+            <summary>
+            The expiration time for the generated tokens.
+            </summary>
+            <remarks>The default is 60 minutes (1 hour).</remarks>
+        </member>
+        <member name="P:MediMatchRMIT.Classes.TokenProviderOptions.SigningCredentials">
+            <summary>
+            The signing key to use when generating tokens.
+            </summary>
+        </member>
+        <member name="P:MediMatchRMIT.Classes.TokenProviderOptions.IdentityResolver">
+            <summary>
+            Resolves a user identity given a username and password.
+            </summary>
+        </member>
+        <member name="P:MediMatchRMIT.Classes.TokenProviderOptions.NonceGenerator">
+            <summary>
+            Generates a random value (nonce) for each generated token.
+            </summary>
+            <remarks>The default nonce is a random GUID.</remarks>
+        </member>
         <member name="M:MediMatchRMIT.Controllers.FacilitiesController.GetFacility">
             <summary>
             Gets All Facilities

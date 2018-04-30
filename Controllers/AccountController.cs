@@ -13,10 +13,12 @@ using Microsoft.Extensions.Options;
 using MediMatchRMIT.Models;
 using MediMatchRMIT.Models.AccountViewModels;
 using MediMatchRMIT.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace MediMatchRMIT.Controllers
 {
-    [Authorize]
+
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
