@@ -8,7 +8,7 @@ Medical Matching Service for the Australian Population
 
 ```
 - Navigate to MediMatchRMIT Folder
-- Open in Terminal
+- Open windows command lines
 
 - Run following command
 
@@ -17,7 +17,7 @@ Medical Matching Service for the Australian Population
 > dotnet ef migrations add [migration name] 
 > dotnet ef database update
 
-OR use Package Manager in Visual Studio 
+OR use Package Manager in Visual Studio (recommended)
 
 PM> Add-Migration [migration name] 
 PM> Update-Database
@@ -51,3 +51,15 @@ Views/ - This holds our MVC Views which will be used for Authentication, and as 
 wwwroot/ - This contains our third party JavaScript & CSS Libraries.
 
 ```
+
+# Project License
+
+|							  |                                          |
+|:----------------------------|:-----------------------------------------|
+| **Author:**		          | Jonathan Phillipos [jaeko44](https://github.com/jaeko44)
+| **Project Manager:**        | Johanna Raymond 
+| **Technical Documentation** | Colin Possamai
+|							  | Xiaoli Xu
+| **Mentor**				  | Ashan Morshed
+| **Copyright:**			  | Copyright (c) 2018 RMIT
+| **License:**				  | Apache License, Version 2.0
