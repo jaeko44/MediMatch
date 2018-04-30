@@ -8,9 +8,9 @@
 
     <div if.bind="medicalProfessional" class="container">
         <div class="row">
-            <div class="col-md-7 ">
+            <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">  <h4>Medical Proefssional</h4></div>
+                    <div class="panel-heading">  <h4>Medical Professional</h4></div>
                     <div class="panel-body">
 
                         <div class="box box-info">
@@ -24,9 +24,8 @@
 
                                         <!-- /input-group -->
                                     </div>
-                                    <div class="col-sm-6">
-                                        <h4 style="color:#00b1b1;">${ medicalProfessional.firstMidName } ${ medicalProfessional.lastName }</h4>
-                                        <span>${ medicalProfessional.serviceType }</span>
+                                    <div class="col-sm-12">
+                                        <h4 style="color:#00b1b1;">Medical Professional</h4>
                                     </div>
                                     <div class="clearfix"></div>
                                     <hr style="margin:5px 0 5px 0;">
@@ -45,14 +44,62 @@
                                     <div class="col-sm-5 col-xs-6 tital ">Phone Number:</div><div class="col-sm-7">${ medicalProfessional.phoneNumber }</div>
                                     <div class="clearfix"></div>
                                     <div class="bot-border"></div>
-                                    <div class="col-sm-5 col-xs-6 tital ">Facility Name:</div><div class="col-sm-7">${ medicalProfessional.facilityName }</div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Service Category:</div><div class="col-sm-7">${ medicalProfessional.service.category }</div>
                                     <div class="clearfix"></div>
+
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Facility Name:</div><div class="col-sm-7">${ medicalProfessional.facility.facilityName }</div>
+                                    <div class="clearfix"></div>
+
                                     <div class="bot-border"></div>
                                     <div class="col-sm-5 col-xs-6 tital ">Website:</div><div class="col-sm-7">${ medicalProfessional.website }</div>
                                     <div class="clearfix"></div>
                                     <div class="bot-border"></div>
                                     <div class="col-sm-5 col-xs-6 tital ">Notes:</div><div class="col-sm-7">${ medicalProfessional.notes }</div>
 
+                                    <!-- /.box-body -->
+                                </div>
+                                <div class="col-sm-6">
+                                    <div align="center">
+                                        <!-- Temporary Image -->
+                                        <img alt="Facility Pic" src="https://cdn4.iconfinder.com/data/icons/hotel-bold-line-7/48/322-512.png" id="profile-image1" class="img-circle img-responsive">
+                                        <br>
+
+                                        <!-- /input-group -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h4 style="color:#00b1b1;">Facility</h4>
+                                        <span>${ medicalProfessional.service.category }</span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <hr style="margin:5px 0 5px 0;">
+
+
+                                    <div class="col-sm-5 col-xs-6 tital ">Name:</div><div class="col-sm-7 col-xs-6 ">${ medicalProfessional.facility.facilityName }</div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Address:</div><div class="col-sm-7">
+                                        ${ medicalProfessional.facility.location.streetNo }
+                                        ${ medicalProfessional.facility.location.street }
+                                        ${ medicalProfessional.facility.location.suburb },
+                                        ${ medicalProfessional.facility.location.postcode }
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Email:</div><div class="col-sm-7">${ medicalProfessional.facility.email }</div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Phone Number:</div><div class="col-sm-7">${ medicalProfessional.facility.phoneNumber }</div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Name:</div><div class="col-sm-7">${ medicalProfessional.facilityName }</div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Website:</div><div class="col-sm-7">${ medicalProfessional.facility.website }</div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                    <div class="col-sm-5 col-xs-6 tital ">Notes:</div><div class="col-sm-7">${ medicalProfessional.facility.notes }</div>
                                     <!-- /.box-body -->
                                 </div>
                                 <!-- /.box -->

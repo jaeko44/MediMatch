@@ -2,19 +2,21 @@
     <h1>Create Facility</h1>
 
     <p>This component demonstrates creating a Medical Facility.</p>
-    
+    <link rel="stylesheet" href="/lib/bootstrap-tagsinput/tags-input.css">
+    <script src="/lib/bootstrap-tagsinput/tags-input.js"></script>
+
     <form role="form" submit.delegate="CreateFacility()">
         <div class="form-group">
             <label for="facilityName">Facility Name</label>
             <input type="text" value.bind="facility.facilityName" id="facilityName" placeholder="Facility Name">
         </div>
         <div class="form-group">
-                <label for="facilityNo">Phone Number</label>
-                <input type="text" value.bind="facility.phoneNo" id="facilityNo" autocomplete='tel' placeholder="+61 0420200">
-            </div>
+            <label for="facilityNo">Phone Number</label>
+            <input type="text" value.bind="facility.phoneNo" id="facilityNo" autocomplete='tel' placeholder="+61 0420200">
+        </div>
         <div class="form-group">
             <label for="email">Public Email</label>
-            <input type="text" value.bind="facility.email" id="email" autocomplete='email' placeholder="email@domain.com">
+            <input type="email" value.bind="facility.email" id="email" autocomplete='email' placeholder="email@domain.com">
         </div>
         <div class="form-group">
             <label for="location.streetNo">Street No</label>
@@ -26,7 +28,7 @@
         </div>
         <div class="form-group">
             <label for="location.postCode">Post Code</label>
-            <input type="text" value.bind="facility.Location.PostCode" id="location.postCode" autocomplete='postal-code' placeholder="Post Code">
+            <input type="number" value.bind="facility.Location.PostCode" id="location.postCode" autocomplete='postal-code' placeholder="Post Code">
         </div>
         <div class="form-group">
             <label for="location.suburb">Suburb</label>
@@ -34,9 +36,9 @@
         </div>
         <div class="form-group">
             <label for="website">Website</label>
-            <input type="text" value.bind="facility.website" id="website" placeholder="Website">
+            <input type="url" value.bind="facility.website" id="website" placeholder="Website">
         </div>
+
         <button type="submit" class="btn btn-primary">Create Facility</button>
     </form>
-
 </template>

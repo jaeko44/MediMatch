@@ -15,6 +15,7 @@ export class DetailFacility {
             .then(result => result.json() as Promise<facility>)
             .then(data => {
                 this.facility = data;
+                console.log(data);
             });
     }
 
