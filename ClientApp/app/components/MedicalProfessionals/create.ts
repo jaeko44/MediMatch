@@ -1,9 +1,6 @@
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
 import { activationStrategy } from 'aurelia-router';
-import { tagsInput } from 'tags-input';
-import * as $ from "jquery";
-import 'jquery-tageditor';
 
 @inject(HttpClient)
 export class CreateMP {
