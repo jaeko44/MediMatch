@@ -50,7 +50,7 @@ namespace MediMatchRMIT.Controllers
         public IActionResult Create()
         {
             ViewData["FacilityId"] = new SelectList(_context.Facility, "Id", "FacilityName");
-            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "Id", "Id");
+            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "Id", "Category");
             return View();
         }
 
