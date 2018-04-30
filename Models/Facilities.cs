@@ -22,8 +22,9 @@ namespace MediMatchRMIT.Models
         public string Website { get; set; }
         public string PhoneNo { get; set; }
         public string Email { get; set; }
-        public ICollection<MedicalProfessional> MedicalProfessionals { get; set; }
+        //public ICollection<MedicalProfessional> MedicalProfessionals { get; set; }
         public ICollection<FacilitySupport> FacilitySupport { get; set; }
+        public string notes { get; set; }
     }
     public class Address
     {
@@ -33,6 +34,7 @@ namespace MediMatchRMIT.Models
         public string PostCode { get; set; }
         [Required]
         public string Street { get; set; }
+        public string State { get; set; }
         public string StreetNo { get; set; }
         public string Suburb { get; set; }
         public DecimalDegrees Coordinates { get; set; }
