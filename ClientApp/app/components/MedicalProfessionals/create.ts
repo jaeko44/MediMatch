@@ -1,9 +1,6 @@
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
 import { activationStrategy } from 'aurelia-router';
-import { tagsInput } from 'tags-input';
-import * as $ from "jquery";
-import 'jquery-tageditor';
 
 @inject(HttpClient)
 export class CreateMP {
@@ -52,13 +49,7 @@ export class CreateMP {
             }).catch (error => console.log(error));
     }
     attached() {
-        $('.form-control-tag').tagEditor({
-            initialTags: ['Hello', 'World'],
-            delimiter: ', ',
-            forceLowercase: false,
-            animateDelete: 0,
-            placeholder: 'Enter tag...'
-        });
+
     }
     addService() {
         for (let service of this.services) {
