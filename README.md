@@ -58,6 +58,7 @@ wwwroot/ - This contains our third party JavaScript & CSS Libraries.
 |:----------------------------|:-----------------------------------------|
 | **Author:**		          | Jonathan Phillipos [jaeko44](https://github.com/jaeko44)
 | **Project Manager:**        | Johanna Raymond 
+| **Front-End Development**   | James Cushing 
 | **Technical Documentation** | Colin Possamai
 |							  | Xiaoli Xu
 | **Mentor**				  | Ashan Morshed
