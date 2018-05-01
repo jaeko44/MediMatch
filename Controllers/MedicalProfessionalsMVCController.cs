@@ -22,6 +22,7 @@ namespace MediMatchRMIT.Controllers
         // GET: MedicalProfessionalsMVC
         public async Task<IActionResult> Index()
         {
+            ViewBag.CurrentPage = "MedicalProfessionalMVC";
             var applicationDbContext = _context.MedicalProfessional.Include(m => m.Facility).Include(m => m.Service);
             return View(await applicationDbContext.ToListAsync());
         }
@@ -29,6 +30,7 @@ namespace MediMatchRMIT.Controllers
         // GET: MedicalProfessionalsMVC/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
+            ViewBag.CurrentPage = "MedicalProfessionalMVC";
             if (id == null)
             {
                 return NotFound();
@@ -49,6 +51,7 @@ namespace MediMatchRMIT.Controllers
         // GET: MedicalProfessionalsMVC/Create
         public IActionResult Create()
         {
+            ViewBag.CurrentPage = "MedicalProfessionalMVC";
             ViewData["FacilityId"] = new SelectList(_context.Facility, "Id", "FacilityName");
             ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "Id", "Category");
             return View();
@@ -69,7 +72,7 @@ namespace MediMatchRMIT.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FacilityId"] = new SelectList(_context.Facility, "Id", "FacilityName", medicalProfessional.FacilityId);
-            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "Id", "Id", medicalProfessional.ServiceId);
+            ViewData["ServiceId"] = new SelectList(_context.Set<Service>(), "Id", "Category", medicalProfessional.ServiceId);
             return View(medicalProfessional);
         }
 

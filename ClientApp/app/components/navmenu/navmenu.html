@@ -1,4 +1,5 @@
 <template bindable="router">
+
     <require from="./navmenu.css"></require>
     <div class="main-nav">
         <div class="navbar navbar-inverse">
@@ -14,8 +15,8 @@
             <div class="clearfix"></div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li repeat.for = "row of router.navigation" class="${ row.isActive ? 'link-active' : '' }" >
-                        <a href.bind = "row.href">
+                    <li repeat.for="row of router.navigation" class="${ row.isActive ? 'link-active' : '' }">
+                        <a href.bind="row.href">
                             <span class="fa fa-${ row.settings.icon }"></span> ${ row.title }
                         </a>
                     </li>
@@ -23,4 +24,5 @@
             </div>
         </div>
     </div>
+
 </template>

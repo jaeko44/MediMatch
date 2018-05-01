@@ -12,19 +12,20 @@ namespace MediMatchRMIT.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.CurrentPage = "Index";
             return View();
         }
 
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
-
+            ViewBag.CurrentPage = "Contact";
             return View();
         }
         public IActionResult App()
         {
             ViewData["Message"] = "Your aurelia app page.";
-
+            ViewBag.CurrentPage = "Application";
             return View();
         }
 

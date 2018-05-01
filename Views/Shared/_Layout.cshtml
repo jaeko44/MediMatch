@@ -42,31 +42,128 @@
     <script src="~/lib/jquery-serialize/jquery.serialize-object.js"></script>
 </head>
 <body>
+    <header class="oj-web-applayout-header" role="banner">
+        <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+            <!-- Offcanvas toggle button -->
+            <div class="oj-flex-bar-start oj-md-hide">
+                <oj-button title="Application Navigation" class="oj-button-lg oj-button oj-component oj-enabled oj-default oj-button-half-chrome oj-button-icon-only oj-complete"
+                           id="drawerToggleButton" display="icons" chroming="half" on-oj-action="[[toggleDrawer]]">
+                    <button class="oj-button-button oj-component-initnode" aria-labelledby="ui-id-2" data-oj-internal="">
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">MediMatchRMIT</a>
+
+                        <div class="oj-button-label">
+                            <span class="oj-web-applayout-offcanvas-icon oj-button-icon oj-start" slot="startIcon"></span>
+                            <span class="oj-button-text oj-helper-hidden-accessible" id="ui-id-2">Application Navigation</span>
+                        </div>
+                    </button>
+                </oj-button>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="App">Application</a></li>
-                    <li><a href="/docs/">API Documentation</a></li>
-                    <li><a asp-area="" asp-controller="MedicalProfessionalsMVC" asp-action="Index">Medical Professional MVC</a></li>
-                    <li><a asp-area="" asp-controller="FacilitiesMVC" asp-action="Index">Facilities MVC</a></li>
-                    <li><a asp-area="" asp-controller="ServicesMVC" asp-action="Index">Services</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
+            <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
+                <a class="navbar-brand" href="/">
+                    <img src="~/images/medimatchlogo.png" alt="" class="logo-wide">
+                </a>
+            </div>
+            <div class="oj-flex-bar-end">
+                <!-- Responsive Toolbar -->
+                <oj-toolbar class="oj-toolbar oj-component oj-component-initnode oj-complete" role="toolbar">
+                    @await Html.PartialAsync("_LoginPartial")
+                </oj-toolbar>
             </div>
         </div>
-    </nav>
+        <div class="oj-web-applayout-max-width oj-web-applayout-navbar" role="navigation">
+            <oj-navigation-list tabindex="0" class="oj-sm-only-hide oj-md-condense oj-md-justify-content-flex-end oj-navigationlist oj-navigationlist-expanded oj-navigationlist-horizontal oj-navigationlist-app-level oj-component-initnode oj-complete"
+                                role="toolbar" aria-multiselectable="false"
+                                edge="top">
+                <div class="oj-navigationlist-listview-container" role="presentation">
+                    <div class="oj-navigationlist-listview oj-component" role="presentation" style="max-width: none;">
+                        <div class="oj-helper-detect-contraction">
+                            <div style="width: 200%; height: 200%;"></div>
+                        </div>
+                        <div class="oj-helper-detect-expansion">
+                            <div style="width: 1573px; height: 481px;"></div>
+                        </div>
+                        <ul class="oj-navigationlist-element" id="ui-id-8" role="presentation">
+                            <li class="oj-navigationlist-item-element oj-navigationlist-item @(ViewBag.CurrentPage == "Index" ? "oj-selected" : "oj-default")" id="ui-id-18" role="presentation">
+                                <a class="oj-navigationlist-focused-element oj-navigationlist-item-content" role="button"
+                                   aria-pressed="false" asp-area="" asp-controller="Home" asp-action="Index">
+                                    <span class="oj-navigationlist-item-icon fa fa-home"></span>
+                                    <span class="oj-navigationlist-item-label">
+                                        Home
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li class="oj-navigationlist-divider" role="separator"></li>
+                            <li class="oj-navigationlist-item-element oj-navigationlist-item @(ViewBag.CurrentPage == "Application" ? "oj-selected" : "oj-default")" id="ui-id-20"
+                                role="presentation">
+                                <a class="oj-navigationlist-focused-element oj-navigationlist-item-content" role="button"
+                                   aria-pressed="false" asp-area="" asp-controller="Home" asp-action="App">
+                                    <span class="oj-navigationlist-item-icon fa fa-desktop"></span>
+                                    <span class="oj-navigationlist-item-label">
+                                        Application
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li class="oj-navigationlist-divider" role="separator"></li>
+                            <li class="oj-navigationlist-item-element oj-navigationlist-item oj-default" id="ui-id-22"
+                                role="presentation">
+                                <a class="oj-navigationlist-focused-element oj-navigationlist-item-content" role="button"
+                                   aria-pressed="true" href="/docs/">
+                                    <span class="oj-navigationlist-item-icon fa fa-book"></span>
+                                    <span class="oj-navigationlist-item-label">
+                                        API Documentation
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li class="oj-navigationlist-divider" role="separator"></li>
+                            <li class="oj-navigationlist-item-element oj-navigationlist-item oj-default oj-navigationlist-item-last-child @(ViewBag.CurrentPage == "MedicalProfessionalMVC" ? "oj-selected" : "oj-default")"
+                                id="ui-id-24" role="presentation">
+                                <a class="oj-navigationlist-focused-element oj-navigationlist-item-content" role="button"
+                                   aria-pressed="false" asp-controller="MedicalProfessionalsMVC" asp-action="Index">
+                                    <span class="oj-navigationlist-item-icon fa fa-address-book"></span>
+                                    <span class="oj-navigationlist-item-label">
+                                        MVC
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="oj-listview-status-message oj-listview-status" id="ui-id-8:status" role="status" style="display: none;">
+                            <div class="oj-icon oj-listview-loading-icon"></div>
+                        </div>
+                        <div class="oj-helper-hidden-accessible" id="ui-id-8:info" role="status"></div>
+                    </div>
+                </div>
+            </oj-navigation-list>
+        </div>
+    </header>
+
+
+    @*<nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="~/images/medimatchlogo.png"></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="App">Application</a></li>
+                        <li><a href="/docs/">API Documentation</a></li>
+                        <li><a asp-area="" asp-controller="MedicalProfessionalsMVC" asp-action="Index">Medical Professional MVC</a></li>
+                        <li><a asp-area="" asp-controller="FacilitiesMVC" asp-action="Index">Facilities MVC</a></li>
+                        <li><a asp-area="" asp-controller="ServicesMVC" asp-action="Index">Services</a></li>
+                    </ul>
+                    @await Html.PartialAsync("_LoginPartial")
+                </div>
+            </div>
+        </nav>*@
     <div class="container body-content">
         @RenderBody()
         <hr />
