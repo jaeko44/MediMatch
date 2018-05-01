@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MediMatchRMIT.Data;
 using MediMatchRMIT.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace MediMatchRMIT.Controllers
 {
@@ -55,8 +56,13 @@ namespace MediMatchRMIT.Controllers
             return Ok(facility);
         }
 
-        [Authorize]
-        // PUT: api/Facilities/5
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        /// <summary>
+        /// Update a Facility by ID
+        /// PUT: api/Facilities/5
+        /// </summary>
+        /// <param name="id">The ID of the facility to update.</param>
+        /// <param name="facility">The new facility data.</param>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFacility([FromRoute] Guid id, [FromBody] Facility facility)
         {
@@ -91,7 +97,12 @@ namespace MediMatchRMIT.Controllers
             return NoContent();
         }
 
-        // POST: api/FacilitiesAPI
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        /// <summary>
+        /// Add a new Facility
+        /// POST: api/Facilities
+        /// </summary>
+        /// <param name="facility">The new facility data in [body].</param>
         [HttpPost]
         public async Task<IActionResult> PostFacility([FromBody] Facility facility)
         {
@@ -108,7 +119,13 @@ namespace MediMatchRMIT.Controllers
             return CreatedAtAction("GetFacility", new { id = facility.Id }, facility);
         }
 
-        // DELETE: api/FacilitiesAPI/5
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        /// <summary>
+        /// Delete a Facility by ID
+        /// DELETE: api/Facilities/5
+        /// </summary>
+        /// <param name="id">The ID of the facility to update.</param>
+        /// <param name="facility">The new facility data.</param>
         [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFacility([FromRoute] Guid id)

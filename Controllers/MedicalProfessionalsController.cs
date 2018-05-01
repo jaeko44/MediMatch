@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using MediMatchRMIT.Data;
 using MediMatchRMIT.Models;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace MediMatchRMIT.Controllers
 {
@@ -87,7 +89,13 @@ namespace MediMatchRMIT.Controllers
             return NoContent();
         }
 
-        // POST: api/MedicalProfessionals
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        /// <summary>
+        /// Add a new Facility
+        /// POST: api/MedicalProfessional
+        /// Authorized Request
+        /// </summary>
+        /// <param name="medicalProfessional">The new medicalProfessional data in [body].</param>
         [HttpPost]
         public async Task<IActionResult> PostMedicalProfessional([FromBody] MedicalProfessional medicalProfessional)
         {

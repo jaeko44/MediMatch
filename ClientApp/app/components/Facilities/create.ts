@@ -7,14 +7,13 @@ export class CreateFacility {
     http: HttpClient;
     public facility: any;
     public medicalId: number;
+    private token: string;
 
     constructor(http: HttpClient, authentication: Authentication) {
         //
         console.log("Constructor: Create Facility Triggered");
-        var auth_token = localStorage.getItem("auth_token");
-        var token = sessionStorage.getItem('access_token');
-        console.log(token);
-        var allCookies = document.cookie;
+        var token = sessionStorage.getItem('token');
+        this.token = token;
         this.http = http;
     }
 
@@ -24,12 +23,16 @@ export class CreateFacility {
             method: 'post',
             body: JSON.stringify(this.facility),
             headers: new Headers({
+                'Authorization': 'Bearer ' + this.token,
                 'Content-Type': 'application/json'
             })
         })
             .then(response => {
                 // do whatever here
-                delete this.facility;
+                this.facility = null;
+                if (response.status == 401) {
+                    console.log("Unauthorized request");
+                }
                 console.log(response);
             }).catch(error => console.log(error));
     }

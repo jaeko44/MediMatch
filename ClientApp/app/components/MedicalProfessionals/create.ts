@@ -5,15 +5,18 @@ import { activationStrategy } from 'aurelia-router';
 @inject(HttpClient)
 export class CreateMP {
     http: HttpClient;
-    public medicalProfessional: any;
-    public medic: any;
-    public facility: any;
-    public facilities: any[];
-    public services: any[];
-    public medicalId: number;
+    private medicalProfessional: any;
+    private medic: any;
+    private facility: any;
+    private facilities: any[];
+    private services: any[];
+    private medicalId: number;
+    private token: string;
 
     constructor(http: HttpClient) {
         this.http = http;
+        var token = sessionStorage.getItem('token');
+        this.token = token;
         //let services: any[] = [{ id: 1, category: "General Practitioner" }, { id: 2, category: "Dentist" }];
         let medic: any = { firstMidName: "Test", lastName: "TestL" };
         //medic.services = services;
@@ -39,12 +42,17 @@ export class CreateMP {
             method: 'post',
             body: JSON.stringify(this.medicalProfessional),
             headers: new Headers({
+                'Authorization': 'Bearer ' + this.token,
                 'Content-Type': 'application/json'
             })
         })
             .then(response => {
                 // do whatever here
                 //delete this.medicalProfessional;
+                this.facility = null;
+                if (response.status == 401) {
+                    console.log("Unauthorized request");
+                }
                 console.log(response);
             }).catch (error => console.log(error));
     }

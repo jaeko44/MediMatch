@@ -8,32 +8,38 @@ export class Authentication {
     private http: HttpClient;
     private loading: boolean = false;
     public BaseUrl: string;
+    private token: string;
 
 
     constructor(http: HttpClient, aurelia: Aurelia) {
         //AspNetCore.Identity.Application is currently HTTP-Read Only meaning we cannot capture it in JavaScript. 
         //We need to find a new way to get Identity Authentication of a user when they are logged in.
-        var Identity = this.getCookie(".AspNetCore.Identity.Application");
+        let Identity = sessionStorage.getItem("token");
         console.log("Identity of user: " + Identity);
-        http = new HttpClient().configure(config => {
-            config
-                .useStandardConfiguration()
-                .withBaseUrl(window.location.origin + "api/")
-                .withDefaults({
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .withInterceptor({
-                    request(request: Request) {
-                        request.headers.append('Authorization', 'Bearer ' + Identity);
-                        return request;
-                    }
-                });
-        });
-        //Override current HttpClient Instance
-        aurelia.container.registerInstance(HttpClient, http);
-        //aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('app')));
+        if (Identity != null) {
+            http = new HttpClient().configure(config => {
+                config
+                    .useStandardConfiguration()
+                    .withBaseUrl(window.location.origin + "api/")
+                    .withDefaults({
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .withInterceptor({
+                        request(request: Request) {
+                            request.headers.append('Authorization', 'Bearer ' + Identity);
+                            return request;
+                        }
+                    });
+            });
+            aurelia.container.registerInstance(HttpClient, http);
+            //Override current HttpClient Instance
+            //aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('app')));
+        }
+        else {
+            console.log("User is not authenticated");
+        }
     }
     getCookie(name: string) {
         var regexp = new RegExp("(?:^" + name + "|;\s*" + name + ")=(.*?)(?:;|$)", "g");
@@ -43,6 +49,7 @@ export class Authentication {
     activate() {
         this.loading = true;
         //Make an API call here to test if Authentication is Succesfull.
+
     }
 
 }

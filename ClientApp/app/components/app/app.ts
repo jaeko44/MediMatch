@@ -5,6 +5,11 @@ export class App {
     router: Router;
 
     configureRouter(config: RouterConfiguration, router: Router) {
+        var token = sessionStorage.getItem('token');
+        let isAuthenticated = false;
+        if (token != null) {
+            isAuthenticated = true;
+        }
         config.title = 'MediMatchRMIT';
         config.map([{
             route: [ '', 'home' ],
@@ -25,7 +30,7 @@ export class App {
             name: 'MedicalProfessionalCreate',
             settings: { icon: 'user-md' },
             moduleId: PLATFORM.moduleName('../MedicalProfessionals/create'),
-            nav: true,
+            nav: isAuthenticated,
             title: 'Medical Professional Create'
         }, {
                 route: 'medical/detail/:id/',
@@ -45,7 +50,7 @@ export class App {
             name: 'FacilitiesList',
             settings: { icon: 'plus-square' },
             moduleId: PLATFORM.moduleName('../Facilities/create'),
-            nav: true,
+            nav: isAuthenticated,
             title: 'Facilities Create'
         }, {
                 route: 'facilities/detail/:id/',
