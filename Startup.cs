@@ -21,6 +21,9 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MediMatchRMIT.Middleware;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Reflection;
+using System.IO;
 
 namespace MediMatchRMIT
 {
@@ -116,8 +119,33 @@ namespace MediMatchRMIT
             // Register no-op EmailSender used by account confirmation and password reset during development
             // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
             services.AddSingleton<IEmailSender, EmailSender>();
+            //Add Swagger UI for API Docs Generation
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "MediMatch RMIT API",
+                    Description = "ASP.net WEB-API Endpoint for Medimatch",
+                    TermsOfService = "None",
+                Contact = new Contact
+                    {
+                        Name = "Jonathan Philipos",
+                        Email = "jonathan@det.io",
+                        Url = "https://github.com/jaeko44"
+                    },
+                    License = new License
+                    {
+                        Name = "Use under Apache License Version 2.0",
+                        Url = "http://www.apache.org/licenses/"
+                    }
+                });
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
         }
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -141,7 +169,12 @@ namespace MediMatchRMIT
 
             app.UseAuthentication();
             app.UseJWTTokenProviderMiddleware(Options.Create(_tokenProviderOptions));
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MediMatch RMIT API V1");
+                c.RoutePrefix = "docs";
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -151,6 +184,6 @@ namespace MediMatchRMIT
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "App" });
             });
-        }
     }
+}
 }

@@ -24,7 +24,7 @@
             <summary>
             The expiration time for the generated tokens.
             </summary>
-            <remarks>The default is 60 minutes (1 hour).</remarks>
+            <remarks>The default is 24 hours (1 day).</remarks>
         </member>
         <member name="P:MediMatchRMIT.Classes.TokenProviderOptions.SigningCredentials">
             <summary>

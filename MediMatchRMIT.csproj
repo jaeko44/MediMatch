@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>App_Data/XmlDocument.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
+    <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,12 +23,10 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.4" />
-    <PackageReference Include="Microsoft.AspNet.WebApi" Version="5.2.4" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.HelpPage" Version="5.2.4" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" PrivateAssets="All" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,20 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Program.cs.d.ts">
-      <DependentUpon>Program.cs</DependentUpon>
-    </None>
-    <None Update="Startup.cs.d.ts">
-      <DependentUpon>Startup.cs</DependentUpon>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Migrations\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\components\authentication.ts" />
-  </ItemGroup>
-
 </Project>
