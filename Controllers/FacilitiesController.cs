@@ -46,7 +46,7 @@ namespace MediMatchRMIT.Controllers
                 return BadRequest(ModelState);
             }
 
-            var facility = await _context.Facility.Include(m => m.Location.Coordinates).SingleOrDefaultAsync(m => m.Id == id);
+            var facility = await _context.Facility.Include(m => m.Location).SingleOrDefaultAsync(m => m.Id == id);
             //facility.Location = await _context.Address.SingleOrDefaultAsync(m => m.Id == facility.LocationId);
             if (facility == null)
             {
@@ -54,6 +54,28 @@ namespace MediMatchRMIT.Controllers
             }
 
             return Ok(facility);
+        }
+
+        [Route("GetFacilitiesBySuburb")]
+        [HttpGet]
+        public async Task<IActionResult> GetFacilitiesBySuburb([FromHeader] String suburb)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+
+            var result = _context.Facility.Where(m => m.Location.Suburb == suburb);
+
+            var facilities = await result.ToListAsync();
+
+            if (facilities.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(facilities);
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
