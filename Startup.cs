@@ -81,8 +81,7 @@ namespace MediMatchRMIT
         {
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=medimatch.db"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -185,7 +184,17 @@ namespace MediMatchRMIT
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "App" });
             });
-            dbSeed.Seed().Wait();
+            try
+            {
+                // Requires using RazorPagesMovie.Models;
+                dbSeed.Seed().Wait();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occured while seeding the database");
+                Console.Write(ex);
+            }
+
         }
 }
 }
