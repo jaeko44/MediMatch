@@ -1,104 +1,26 @@
-import { HttpClient } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
+import { Data } from '../data';
 
-@inject(HttpClient)
+@inject(Data)
 export class ListMP {
-    public medicalProfessionals: medicalProfessional[];
+    public medicalProfessionals: any;
+    private data: Data;
 
-    constructor(http: HttpClient) {
-        http.fetch('api/MedicalProfessionals')
-            .then(result => result.json() as Promise<medicalProfessional[]>)
-            .then(data => {
-                this.medicalProfessionals = data;
-                console.log("Succesfully received data from server");
-                console.log(data);
-            });
+    constructor(data: Data) {
+        this.data = data;
+        var newPromise = this.resolveMedicalProfessionals();
+        console.log("Medical Profesionals retrieved from data class");
+        console.log(newPromise);
     }
-}
-
-interface medicalProfessional {
-    id: any;
-    firstMidName: string;
-    lastName: string;
-    services: any[];
-    hoursActive: any[];
-    notes: string;
-    email: string;
-    phoneNumber: string;
-    reviews: any[];
-    facility: {
-        id: any;
-        facilityName: string;
-        location: {
-            id: any;
-            postCode: string;
-            street: string;
-            streetNo: string;
-            suburb: string;
-            coordinates: {
-                id: any;
-                latitude: number;
-                longtitude: number;
-            };
-        };
-        locationId: any;
-        website: string;
-        phoneNo: string;
-        email: string;
-        medicalProfessionals: any[];
-        facilitySupport: any[];
-    };
-    facilityId: any;
-}
-interface service {
-    id: any;
-    category: string;
-}
-interface hoursActive {
-    id: any;
-    weekDays: string;
-    hours: string;
-}
-interface review {
-    id: any;
-    title: string;
-    rating: number;
-    comment: string;
-    time: Date;
-    userId: number;
-    medicalProfessionalId: any;
-    medicalProfessional: {
-        id: any;
-        firstMidName: string;
-        lastName: string;
-        services: any[];
-        hoursActive: any[];
-        notes: string;
-        email: string;
-        phoneNumber: string;
-        reviews: any[];
-        facility: {
-            id: any;
-            facilityName: string;
-            location: {
-                id: any;
-                postCode: string;
-                street: string;
-                streetNo: string;
-                suburb: string;
-                coordinates: {
-                    id: any;
-                    latitude: number;
-                    longtitude: number;
-                };
-            };
-            locationId: any;
-            website: string;
-            phoneNo: string;
-            email: string;
-            medicalProfessionals: any[];
-            facilitySupport: any[];
-        };
-        facilityId: any;
-    };
+    async resolveMedicalProfessionals() {
+        try {
+            let data = await this.data.getMedicalProfessionals();
+            this.medicalProfessionals = data;
+            console.log(this.medicalProfessionals);
+            return data;
+        } catch(error) {
+            console.error(error);
+            return null;
+        }
+    }
 }
