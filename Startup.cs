@@ -81,8 +81,7 @@ namespace MediMatchRMIT
         {
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=medimatch.db"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -90,6 +89,8 @@ namespace MediMatchRMIT
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<SeedData>();
+
             services.AddMvc().AddRazorPagesOptions(options =>
             {
                 options.Conventions.AuthorizeFolder("/Account/Manage");
@@ -148,7 +149,7 @@ namespace MediMatchRMIT
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedData dbSeed)
         {
             if (env.IsDevelopment())
             {
@@ -166,7 +167,6 @@ namespace MediMatchRMIT
             }
 
             app.UseStaticFiles();
-
             app.UseAuthentication();
             app.UseJWTTokenProviderMiddleware(Options.Create(_tokenProviderOptions));
             app.UseSwagger();
@@ -184,6 +184,17 @@ namespace MediMatchRMIT
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "App" });
             });
-    }
+            try
+            {
+                // Requires using RazorPagesMovie.Models;
+                dbSeed.Seed().Wait();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occured while seeding the database");
+                Console.Write(ex);
+            }
+
+        }
 }
 }
