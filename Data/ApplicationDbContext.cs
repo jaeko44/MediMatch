@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using MediMatchRMIT.Models;
 using Microsoft.Extensions.DependencyInjection;
 using MediMatchRMIT.Data;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace MediMatchRMIT.Data
 {
@@ -32,7 +33,13 @@ namespace MediMatchRMIT.Data
         public DbSet<MediMatchRMIT.Models.Address> Address { get; set; }
 
         public DbSet<MediMatchRMIT.Models.Service> Service { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=medimatch.db");
+        }
     }
+
 }
 
 public class SeedData

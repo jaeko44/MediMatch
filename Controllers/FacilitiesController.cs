@@ -68,7 +68,7 @@ namespace MediMatchRMIT.Controllers
 
             var result = _context.Facility.Where(m => m.Location.Suburb == suburb);
 
-            var facilities = await result.ToListAsync();
+            var facilities = await result.Include(m => m.Location).ToListAsync();
 
             if (facilities.Count == 0)
             {
