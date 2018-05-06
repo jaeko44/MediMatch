@@ -41,6 +41,15 @@ namespace MediMatchRMIT.Data
     }
 
 }
+public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+{
+    public ApplicationDbContext CreateDbContext(string[] args)
+    {
+        var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
+        builder.UseSqlite("Data Source=medimatch.db");
+        return new ApplicationDbContext(builder.Options);
+    }
+}
 
 public class SeedData
 {
@@ -71,6 +80,17 @@ public class SeedData
                 PhoneNumber = "0402020",
                 Email = "professional@clinic.edu.au",
                 Notes = "professional notes",
+                HoursActive = new List<HoursActive> {
+                    //We can add a list of every week day they are active and their hours.
+                    new HoursActive() {
+                        WeekDays = "Sunday",
+                        Hours = "9 AM - 5 PM"
+                    },
+                    new HoursActive() {
+                        WeekDays = "Monday",
+                        Hours = "9 AM - 6 PM"
+                    } 
+                },
                 Service = new Service() { Category = "General Practitioner" },
                 Facility = new Facility() {
                     FacilityName = "Clinic", Email = "clinic@rmit.edu.au", PhoneNo = "04202020", Website="http://rmit.edu.au", notes="Great Facility",
