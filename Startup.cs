@@ -90,6 +90,8 @@ namespace MediMatchRMIT
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<SeedData>();
+
             services.AddMvc().AddRazorPagesOptions(options =>
             {
                 options.Conventions.AuthorizeFolder("/Account/Manage");
@@ -148,7 +150,7 @@ namespace MediMatchRMIT
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedData dbSeed)
         {
             if (env.IsDevelopment())
             {
@@ -166,7 +168,6 @@ namespace MediMatchRMIT
             }
 
             app.UseStaticFiles();
-
             app.UseAuthentication();
             app.UseJWTTokenProviderMiddleware(Options.Create(_tokenProviderOptions));
             app.UseSwagger();
@@ -184,6 +185,7 @@ namespace MediMatchRMIT
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "App" });
             });
-    }
+            dbSeed.Seed().Wait();
+        }
 }
 }

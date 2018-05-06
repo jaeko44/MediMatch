@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MediMatchRMIT.Models;
+using Microsoft.Extensions.DependencyInjection;
+using MediMatchRMIT.Data;
 
 namespace MediMatchRMIT.Data
 {
@@ -31,4 +33,56 @@ namespace MediMatchRMIT.Data
 
         public DbSet<MediMatchRMIT.Models.Service> Service { get; set; }
     }
+}
+
+public class SeedData
+{
+    private ApplicationDbContext _context;
+
+    public SeedData(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+
+
+    public async Task Seed()
+    {
+        if (!_context.MedicalProfessional.Any())
+        {
+            _context.AddRange(_medicalProfessionaList);
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    List<MedicalProfessional> _medicalProfessionaList = new List<MedicalProfessional>
+        {
+            new MedicalProfessional()
+            { //This object is mostly complete now with all the variables u can put in it.
+                FirstMidName = "Hello",
+                LastName = "hello",
+                PhoneNumber = "0402020",
+                Email = "professional@clinic.edu.au",
+                Notes = "professional notes",
+                Service = new Service() { Category = "General Practitioner" },
+                Facility = new Facility() {
+                    FacilityName = "Clinic", Email = "clinic@rmit.edu.au", PhoneNo = "04202020", Website="http://rmit.edu.au", notes="Great Facility",
+                    Location = new Address() {
+                            PostCode = "2767", State="NSW", StreetNo="20", Street="Newbie Town", Suburb="New Jersey"
+                    }
+                }
+            }, //Put comma and paste from 'new MedicalProfessional() section'
+            new MedicalProfessional()
+            {
+                FirstMidName = "Hello",
+                LastName = "hello",
+                Service = new Service() { Category = "General Practitioner" },
+                Facility = new Facility() {
+                    FacilityName = "Clinic", Email = "clinic@rmit.edu.au", PhoneNo = "04202020", Website="http://rmit.edu.au", notes="Great Facility",
+                    Location = new Address() {
+                            PostCode = "2767", State="NSW", StreetNo="20", Street="Newbie Town", Suburb="New Jersey"
+                    }
+                }
+            }
+        };
 }
