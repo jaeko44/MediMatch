@@ -132,6 +132,25 @@ export class Data {
         return medicalProfessional;
     }
 
+    filterMedicalProfessionals(filters: any) {
+        return new Promise((resolve, reject) => {
+            console.log("Filters: Service: " + filters.service + " Identity: " + filters.identity + " Location: " + filters.location);
+            let medicalProfessional: any;
+            this.http.fetch('MedicalProfessionals/Filter', {
+                headers: new Headers({
+                    'service': filters.service,
+                    'identity': filters.identity,
+                    'location': filters.location, 
+                    'any': filters.any
+                })
+            }).then(result => result.json() as Promise<any>)
+                .then(data => {
+                    resolve(data);
+                }).catch(error => {
+                    reject(error);
+                });
+        });
+    }
     createMedicalProfessional(medicalProfessional: any) {
         this.http.fetch('MedicalProfessionals', {
             method: 'post',

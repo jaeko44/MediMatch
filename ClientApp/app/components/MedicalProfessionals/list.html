@@ -2,39 +2,39 @@
     <h1>Medical Professionals List</h1>
 
     <p if.bind="!medicalProfessionals"><em>Loading...</em></p>
-
-    <div class="input-group" id="adv-search">
-        <input type="text" class="form-control" placeholder="Search for medical professionals" />
-        <div class="input-group-btn">
-            <div class="btn-group" role="group">
-                <div class="dropdown dropdown-lg">
-                    <button type="button" class="btn btn-default" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                    <div class="dropdown-menu dropdown-menu-right" role="menu">
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <label for="filter">Filter by</label>
-                                <select class="form-control">
-                                    <option value="0" selected>All Services</option>
-                                    <option repeat.for="service of services" value="${service.id}">${service.category}</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="contain">Identity</label>
-                                <input class="form-control" type="text" />
-                            </div>
-                            <div class="form-group">
-                                <label for="contain">Location</label>
-                                <input class="form-control" type="text" />
-                            </div>
-                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                        </form>
+    <form role="form" submit.delegate="SearchMedicalProfessionals()">
+        <div class="input-group" id="adv-search">
+            <input type="text" class="form-control" value.bind="filters.any" placeholder="Search for medical professionals" />
+            <div class="input-group-btn">
+                <div class="btn-group" role="group">
+                    <div class="dropdown dropdown-lg">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                            <form class="form-horizontal" role="form submit.delegate="SearchMedicalProfessionals()">
+                                <div class="form-group">
+                                    <label for="contain">Identity</label>
+                                    <input class="form-control" value.bind="filters.identity" type="text" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="filter">Filter by</label>
+                                    <select class="form-control" value.bind="filters.service">
+                                        <option selected value="undefined">All Services</option>
+                                        <option repeat.for="service of services" value="${service.category}">${service.category}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contain">Location</label>
+                                    <input class="form-control" value.bind="filters.location" type="text" />
+                                </div>
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            </form>
+                        </div>
                     </div>
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                 </div>
-                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
             </div>
         </div>
-    </div>
-
+    </form>
     <table if.bind="medicalProfessionals" class="table">
         <thead>
             <tr>
