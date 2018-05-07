@@ -3,20 +3,31 @@ import { Data } from '../data';
 
 @inject(Data)
 export class ListMP {
-    public medicalProfessionals: any;
+    private medicalProfessionals: any;
+    private services: any;
     private data: Data;
 
     constructor(data: Data) {
         this.data = data;
-        var newPromise = this.resolveMedicalProfessionals();
-        console.log("Medical Profesionals retrieved from data class");
-        console.log(newPromise);
+        var medicalProfessionalPromise = this.resolveMedicalProfessionals();
+        var medicalProfessionalPromise = this.resolveServices();
+        
     }
     async resolveMedicalProfessionals() {
         try {
             let data = await this.data.getMedicalProfessionals();
             this.medicalProfessionals = data;
             console.log(this.medicalProfessionals);
+            return data;
+        } catch(error) {
+            console.error(error);
+            return null;
+        }
+    }
+    async resolveServices() {
+        try {
+            let data = await this.data.getServices();
+            this.services = data;
             return data;
         } catch(error) {
             console.error(error);
