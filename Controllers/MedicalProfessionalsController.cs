@@ -53,6 +53,61 @@ namespace MediMatchRMIT.Controllers
 
             return Ok(medicalProfessional);
         }
+        public class Filter
+        {
+            public string service {get; set; } = null;
+            public string identity {get; set;} = null;
+            public string location {get; set;} = null;
+        }
+        [Route("Filter")]
+        [HttpGet]
+        public async Task<IActionResult> FilterMedicalProfessionals([FromHeader] string service = null, [FromHeader] string identity = null, [FromHeader] string location = null, [FromHeader] string any = null)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            IQueryable<MedicalProfessional>  result = _context.MedicalProfessional;
+
+            if (service != null && service != "undefined") {
+                result = _context.MedicalProfessional.Where(m => m.Service.Category == service);
+            }
+
+            if (location != null && location != "undefined") {
+                result = result.Where(m => m.Facility.Location.Suburb.Contains(location) ||
+                                                                    m.Facility.Location.State.Contains(location) ||
+                                                                    m.Facility.Location.Street.Contains(location) ||
+                                                                    m.Facility.Location.PostCode.Contains(location));
+            }
+
+            if (identity != null && identity != "undefined") {
+                result = result.Where(m=> m.FirstMidName.Contains(identity) ||
+                                          m.LastName.Contains(identity) ||
+                                          m.Email.Contains(identity));
+            }
+
+            if (any != null && any != "undefined")
+            {
+                result = result.Where(m => m.FirstMidName.Contains(any) ||
+                                          m.LastName.Contains(any) ||
+                                          m.Email.Contains(any) ||
+                                          m.Facility.Location.Suburb.Contains(any) ||
+                                          m.Facility.Location.State.Contains(any) ||
+                                          m.Facility.Location.Street.Contains(any) ||
+                                          m.Facility.Location.PostCode.Contains(any) ||
+                                          m.Service.Category.Contains(any));
+            }
+
+            var medicalProfessionals = await result.Include(m => m.Service).ToListAsync();
+
+            if (medicalProfessionals.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(medicalProfessionals);
+        }
 
         // PUT: api/MedicalProfessionals/5
         [HttpPut("{id}")]

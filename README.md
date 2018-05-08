@@ -1,6 +1,8 @@
 # MediMatch
 Medical Matching Service for the Australian Population
 
+Demo of app can be found here: http://medimatchrmit-dev-as.azurewebsites.net/ 
+
 # Instructions to Run
 
 - Install NodeJS

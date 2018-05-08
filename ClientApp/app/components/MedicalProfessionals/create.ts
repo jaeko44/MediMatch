@@ -1,40 +1,46 @@
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
 import { activationStrategy } from 'aurelia-router';
+import { Data } from '../data';
 
-@inject(HttpClient)
+@inject(HttpClient, Data)
 export class CreateMP {
     http: HttpClient;
     private medicalProfessional: any;
     private medic: any;
     private facility: any;
-    private facilities: any[];
-    private services: any[];
+    private facilities: any;
+    private services: any;
     private medicalId: number;
     private token: string;
+    private data: Data;
 
-    constructor(http: HttpClient) {
+    constructor(http: HttpClient, data: Data) {
         this.http = http;
-        var token = sessionStorage.getItem('token');
-        this.token = token;
-        //let services: any[] = [{ id: 1, category: "General Practitioner" }, { id: 2, category: "Dentist" }];
-        let medic: any = { firstMidName: "Test", lastName: "TestL" };
-        //medic.services = services;
-        this.medicalProfessional = medic;
-        http.fetch('api/Facilities')
-            .then(result => result.json() as Promise<any[]>)
-            .then(data => {
-                this.facilities = data;
-            });
-        console.log("this facilities: ");
-        console.log(this.facilities);
-        http.fetch('api/Services')
-            .then(result => result.json() as Promise<any[]>)
-            .then(data => {
-                this.services = data;
-            });
+        this.data = data;
+        this.resolveFacilities();
+        this.resolveServices();
     }
-
+    async resolveFacilities() {
+        try {
+            let data = await this.data.getFacilities();
+            this.facilities = data;
+            return data;
+        } catch(error) {
+            console.error(error);
+            return null;
+        }
+    }
+    async resolveServices() {
+        try {
+            let data = await this.data.getServices();
+            this.services = data;
+            return data;
+        } catch(error) {
+            console.error(error);
+            return null;
+        }
+    }
     CreateMedicalProfessional() {
         console.log("Sending the following Medical Professional to Server");
         console.log(this.medicalProfessional);

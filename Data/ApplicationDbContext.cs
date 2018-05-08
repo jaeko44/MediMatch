@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using MediMatchRMIT.Models;
 using Microsoft.Extensions.DependencyInjection;
 using MediMatchRMIT.Data;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace MediMatchRMIT.Data
 {
@@ -32,6 +33,21 @@ namespace MediMatchRMIT.Data
         public DbSet<MediMatchRMIT.Models.Address> Address { get; set; }
 
         public DbSet<MediMatchRMIT.Models.Service> Service { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=medimatch.db");
+        }
+    }
+
+}
+public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+{
+    public ApplicationDbContext CreateDbContext(string[] args)
+    {
+        var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
+        builder.UseSqlite("Data Source=medimatch.db");
+        return new ApplicationDbContext(builder.Options);
     }
 }
 
@@ -50,39 +66,66 @@ public class SeedData
     {
         if (!_context.MedicalProfessional.Any())
         {
-            _context.AddRange(_medicalProfessionaList);
-            await _context.SaveChangesAsync();
-        }
-    }
+            
+            List<Service> _serviceList = new List<Service> {
+                new Service() { Category = "General Practitioner" },
+                new Service() { Category = "Dentist" },
+                new Service() { Category = "Pharmacy" }
+            };
+            foreach (Service s in _serviceList)
+            {
+                _context.Service.Add(s);
+            }
 
-    List<MedicalProfessional> _medicalProfessionaList = new List<MedicalProfessional>
+                List<MedicalProfessional> _medicalProfessionaList = new List<MedicalProfessional>
         {
             new MedicalProfessional()
             { //This object is mostly complete now with all the variables u can put in it.
-                FirstMidName = "Hello",
-                LastName = "hello",
+                FirstMidName = "First",
+                LastName = "Practitioner",
                 PhoneNumber = "0402020",
                 Email = "professional@clinic.edu.au",
                 Notes = "professional notes",
-                Service = new Service() { Category = "General Practitioner" },
+                Service = _serviceList[1],
+                HoursActive = new List<HoursActive> {
+                    //We can add a list of every week day they are active and their hours.
+                    new HoursActive() {
+                        WeekDays = "Sunday",
+                        Hours = "9 AM - 5 PM"
+                    },
+                    new HoursActive() {
+                        WeekDays = "Monday",
+                        Hours = "9 AM - 6 PM"
+                    } 
+                },
+                
                 Facility = new Facility() {
-                    FacilityName = "Clinic", Email = "clinic@rmit.edu.au", PhoneNo = "04202020", Website="http://rmit.edu.au", notes="Great Facility",
+                    FacilityName = "Sydney Clinic", Email = "sydney@rmit.edu.au", PhoneNo = "04202020", Website="http://rmit.edu.au", notes="Great Facility",
                     Location = new Address() {
-                            PostCode = "2767", State="NSW", StreetNo="20", Street="Newbie Town", Suburb="New Jersey"
+                            PostCode = "2000", State="NSW", StreetNo="5", Street="York", Suburb="Sydney"
                     }
                 }
             }, //Put comma and paste from 'new MedicalProfessional() section'
             new MedicalProfessional()
             {
-                FirstMidName = "Hello",
-                LastName = "hello",
-                Service = new Service() { Category = "General Practitioner" },
+                FirstMidName = "Practitioner",
+                LastName = "Secondary",
+                PhoneNumber = "0402020222",
+                Email = "professional2@clinic.edu.au",
+                Notes = "What kind of doctor am I?",
+                Service = _serviceList[0],
                 Facility = new Facility() {
-                    FacilityName = "Clinic", Email = "clinic@rmit.edu.au", PhoneNo = "04202020", Website="http://rmit.edu.au", notes="Great Facility",
+                    FacilityName = "Melbourne Clinic", Email = "melbourne@rmit.edu.au", PhoneNo = "04202020", Website="http://rmit.edu.au", notes="Great Facility",
                     Location = new Address() {
-                            PostCode = "2767", State="NSW", StreetNo="20", Street="Newbie Town", Suburb="New Jersey"
+                            PostCode = "3000", State="Victoria", StreetNo="20", Street="Newtown", Suburb="Melbourne"
                     }
                 }
             }
         };
+            _context.AddRange(_medicalProfessionaList);
+            await _context.SaveChangesAsync();
+        }
+    }
+ 
+
 }

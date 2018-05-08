@@ -81,8 +81,7 @@ namespace MediMatchRMIT
         {
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=medimatch.db"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -143,14 +142,14 @@ namespace MediMatchRMIT
                     }
                 });
                 // Set the comments path for the Swagger JSON and UI.
-                var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                //var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
+                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //c.IncludeXmlComments(xmlPath);
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedData dbSeed)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedData dbSeed, ApplicationDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -185,7 +184,17 @@ namespace MediMatchRMIT
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "App" });
             });
-            dbSeed.Seed().Wait();
+            try
+            {
+                context.Database.Migrate();
+                dbSeed.Seed().Wait();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occured while seeding the database");
+                Console.Write(ex);
+            }
+
         }
 }
 }
