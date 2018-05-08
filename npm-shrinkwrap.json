@@ -544,6 +544,11 @@
       "integrity": "sha1-WjiTlFSfIzMIdaOxUGVldPip63E=",
       "dev": true
     },
+    "bootstrap-material-design": {
+      "version": "4.1.1",
+      "resolved": "https://registry.npmjs.org/bootstrap-material-design/-/bootstrap-material-design-4.1.1.tgz",
+      "integrity": "sha1-h0M9sL9k1qCvsPX6qoYGE0ydJtI="
+    },
     "brace-expansion": {
       "version": "1.1.8",
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.8.tgz",
@@ -2710,6 +2715,11 @@
       "integrity": "sha1-XE2d5lKvbNCncBVKYxu6ErAVx4c=",
       "dev": true
     },
+    "jquery-tageditor": {
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/jquery-tageditor/-/jquery-tageditor-1.0.1.tgz",
+      "integrity": "sha512-PrTZ8PlHQvn5s4xRuUrEDMV5Z2whwXcsknNTdc9sNC3UEtqkJt+s1p4/xsu67iZwHwcS7pwDyY0RAlzBzPv6oA=="
+    },
     "js-base64": {
       "version": "2.1.9",
       "resolved": "https://registry.npmjs.org/js-base64/-/js-base64-2.1.9.tgz",
@@ -3744,6 +3754,11 @@
       "integrity": "sha1-FQ4gt1ZZCtP5EJPyWk8q2L/zC6M=",
       "dev": true
     },
+    "prompt-boxes": {
+      "version": "1.1.5",
+      "resolved": "https://registry.npmjs.org/prompt-boxes/-/prompt-boxes-1.1.5.tgz",
+      "integrity": "sha1-usa9ERK0rhChGi0HFH/E6OHHI+E="
+    },
     "prr": {
       "version": "0.0.0",
       "resolved": "https://registry.npmjs.org/prr/-/prr-0.0.0.tgz",
@@ -4256,6 +4271,11 @@
         "sax": "1.2.4",
         "whet.extend": "0.9.9"
       }
+    },
+    "tags-input": {
+      "version": "1.1.1",
+      "resolved": "https://registry.npmjs.org/tags-input/-/tags-input-1.1.1.tgz",
+      "integrity": "sha1-1r1+kS8Wqb1BwDyKMFnkJFUoElo="
     },
     "tapable": {
       "version": "0.2.6",

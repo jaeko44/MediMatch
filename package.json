@@ -28,6 +28,10 @@
     "webpack-hot-middleware": "^2.18.0"
   },
   "dependencies": {
-    "font-awesome": "^4.7.0"
+    "bootstrap-material-design": "^4.1.1",
+    "font-awesome": "^4.7.0",
+    "jquery-tageditor": "^1.0.1",
+    "prompt-boxes": "^1.1.5",
+    "tags-input": "^1.1.1"
   }
 }
