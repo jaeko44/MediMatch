@@ -9,33 +9,22 @@
     ViewData["Title"] = "Log in";
 }
 
+<script>
+    $(document).ready(function () {
+        $('form:first').submit(function (e) {
+            e.preventDefault();
+            var $form = $(this);
+            var formData = $form.serializeObject(); // https://github.com/macek/jquery-serialize-object
+            formData.grant_type = "password";
+            getToken(formData);
+            $form.get(0).submit(); // do the actual page login now
+        });
+    });
+</script>
+
 <h2>@ViewData["Title"]</h2>
 <div class="row">
     <div class="col-md-4">
-        <script>
-            $(document).ready(function () {
-                $('form:first').submit(function (e) {
-                    e.preventDefault();
-                    var $form = $(this);
-                    var formData = $form.serializeObject(); // https://github.com/macek/jquery-serialize-object
-                    formData.grant_type = "password";
-                    $.ajax({
-                        type: "POST",
-                        url: '@Url.Content("~/api/token")',
-                        dataType: "json",
-                        data: formData, // seems like the data must be in json format
-                        success: function (data) {
-                            sessionStorage.setItem('token', data.access_token);
-                            $form.get(0).submit(); // do the actual page login now
-                        },
-                        error: function (textStatus) {
-                            $('#error').show();
-                            $('#errorTitle').after('<p>' + textStatus.responseText + '<p>');
-                        }
-                    });
-                });
-            });
-        </script>
         <section>
             <div class="alert alert-danger" id="error" style="display:none;">
                 <strong id="errorTitle">Error!</strong>
