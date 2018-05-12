@@ -1,7 +1,9 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home Page";
 }
 
+<require from="./caro_page.css"></require>
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -73,13 +75,89 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
+    <div class="row">
 
-<div class="row">
-    <div class="col-md-3">
-        <h2>Welcome to MediMatch RMIT Project</h2>
-        <ul>
-            <li>This application allows users to match with Medical Professionals and Facilities around Australia</li>
-            <li>This application is built via ASP.net Core, with an Aurelia-Client utilizing MVC Methadology</a></li>
-        </ul>
+            <div class="col-xs-12 text-center">
+                <span class="border border-white" >
+                   <h2>Welcome to our MediMatch RMIT Project</h2>
+                   <p>sign up and leave a review to recommend other to the fantastic service</p>
+                </span>   
+              </div>
+          </div>
+                <div class="col-sm-6">
+          <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title" itemprop="name">Medi match lived up to all the hype</h3>
+          </div><!--/panel-heading-->
+          <div class="panel-body" itemprop="reviewBody">
+            <p>My tooth ached like a hernia and i was loosing site of reality, when medimatch saved the day a simple click and i connected to a range of all time in my area, dentist 5 stars medimatch such an amazing setup.</p>
+
+            <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+              <small>
+              <span itemprop="name">-- Rodger Melley</span>
+            </span><!--/author schema -->
+
+              <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+
+              <meta itemprop="datePublished" content="01-01-2016">01-01-2016
+              
+              <span class="pull-right">
+              <span class="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                <meta itemprop="worstRating" content="1">
+                  <span itemprop="ratingValue">5</span> / 
+                <span itemprop="bestRating"> stars </span>
+              </span><!--/reviewRating-->
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            </small>
+          </div><!--/panel-body-->
+          <div class="panel-footer clearfix">
+              <div class="col-sm-1"><i class="fa fa-facebook-official fa-2x"></i></div>
+              <div class="col-sm-1"><i class="fa fa-twitter-square fa-2x"></i></div>
+              <div class="col-sm-1"><i class="fa fa-google-plus fa-2x"></i></div>
+          </div><!--/panel-footer-->
+        </div><!--/panel-->
+      </div><!--/col-sm-6-->
+      <div class="col-sm-6">
+          <div class="panel panel-default">
+          <div class="panel-heading">
+            <span itemscope itemtype="http://schema.org/Review">
+            <h3 class="panel-title" itemprop="name">Links to the good guys</h3>
+          </div><!--/panel-heading-->
+          <div class="panel-body" itemprop="reviewBody">
+            <p>When i suddenly contracted elephantitis of the head and couldnt fit through the door frame!! Medimatch was on hand to send a mobile doctor who specilized in such a rare condition well done medimatch 10 starts..</p>
+
+            <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+              <small>
+              <span itemprop="name">-- Biffa Bacon</span>
+            </span><!--/author schema -->
+
+              <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+
+              <meta itemprop="datePublished" content="01-01-2016">01-01-2016
+              
+              <span class="pull-right">
+              <span class="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                <meta itemprop="worstRating" content="1">
+                  <span itemprop="ratingValue">5</span> / 
+                <span itemprop="bestRating"> stars </span>
+              </span><!--/reviewRating-->
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            </small>
+          </div><!--/panel-body-->
+          <div class="panel-footer clearfix">
+              <div class="col-sm-1"><i class="fa fa-facebook-official fa-2x"></i></div>
+              <div class="col-sm-1"><i class="fa fa-twitter-square fa-2x"></i></div>
+              <div class="col-sm-1"><i class="fa fa-google-plus fa-2x"></i></div>
+          </div><!--/panel-footer-->
+        </div><!--/panel-->
+      </div><!--/col-sm-6-->
     </div>
 </div>
