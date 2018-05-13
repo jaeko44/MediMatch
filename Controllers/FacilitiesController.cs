@@ -30,7 +30,7 @@ namespace MediMatchRMIT.Controllers
         [HttpGet]
         public IEnumerable<Facility> GetFacility()
         {
-            return _context.Facility;
+            return _context.Facility.Include(m => m.Location);
         }
 
         /// <summary>
@@ -69,6 +69,54 @@ namespace MediMatchRMIT.Controllers
             var result = _context.Facility.Where(m => m.Location.Suburb == suburb);
 
             var facilities = await result.Include(m => m.Location).ToListAsync();
+
+            if (facilities.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(facilities);
+        }
+
+        [Route("Filter")]
+        [HttpGet]
+        public async Task<IActionResult> FilterFacilities([FromHeader] string identity = null, [FromHeader] string location = null, [FromHeader] string any = null)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            IQueryable<Facility>  result = _context.Facility;
+
+            if (location != null && location != "undefined") {
+                result = result.Where(m => m.Location.Suburb.Contains(location) ||
+                                           m.Location.State.Contains(location) ||
+                                           m.Location.Street.Contains(location) ||
+                                           m.Location.PostCode.Contains(location));
+            }
+
+            if (identity != null && identity != "undefined") {
+                result = result.Where(m=> m.FacilityName.Contains(identity) ||
+                                          m.Email.Contains(identity) ||
+                                          m.notes.Contains(identity) ||
+                                          m.PhoneNo.Contains(identity));
+            }
+
+            if (any != null && any != "undefined")
+            {
+                result = result.Where(m => m.FacilityName.Contains(any) ||
+                                          m.notes.Contains(any) ||
+                                          m.Email.Contains(any) ||
+                                          m.Location.Suburb.Contains(any) ||
+                                          m.Location.State.Contains(any) ||
+                                          m.Location.Street.Contains(any) ||
+                                          m.Location.PostCode.Contains(any) ||
+                                          m.PhoneNo.Contains(any));
+            }
+
+            var facilities = await result.Include(m => m.Location)
+                                         .Include(m => m.FacilitySupport).ToListAsync();
 
             if (facilities.Count == 0)
             {

@@ -1,7 +1,8 @@
 import { HttpClient } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
+import { Data } from '../data';
 
-@inject(HttpClient)
+@inject(HttpClient, Data)
 export class DetailFacility {
     http: HttpClient;
     public facility: facility;
@@ -9,8 +10,9 @@ export class DetailFacility {
     public googleMapsKey: string = "AIzaSyBkkj6qQ0qLfTGHYJPuL9asFAAk9hlguJ4";
     public facilityAddress: string;
     public clientAddress: string;
+    private data: Data;
 
-    constructor(http: HttpClient) {
+    constructor(http: HttpClient, data: Data) {
         this.http = http;
     }
     activate(params: { id: string; }) {

@@ -1,7 +1,7 @@
 # MediMatch
 Medical Matching Service for the Australian Population
 
-Demo of app can be found here: http://medimatchrmit-dev-as.azurewebsites.net/ 
+Demo of app can be found here: http://medimatchrmit.azurewebsites.net/
 
 # Instructions to Run
 

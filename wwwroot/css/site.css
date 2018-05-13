@@ -1,5 +1,6 @@
 ﻿body {
     padding-bottom: 20px;
+    font-size: 1.2rem;
 }
 
 /* Wrapping element */
@@ -97,65 +98,10 @@ html {
 	-webkit-text-size-adjust: 100%;
 }
 html {
-	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
-	font-size: 0.87em;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    font-size: 0.85em !important;
 }
-:root {
-	--oj-brand-color-light5:#e8f3fa: ;
-	--oj-brand-color-light4:#e1eff8: ;
-	--oj-brand-color-light3:#d7eaf6: ;
-	--oj-brand-color-light2:#b3d7ee: ;
-	--oj-brand-color-light1:#76b8e1: ;
-	--oj-brand-color:#027bc7: ;
-	--oj-brand-color-dark1:#02629f: ;
-	--oj-brand-color-dark2:#014a77: ;
-	--oj-neutral-color1:#fff: ;
-	--oj-neutral-color2:#fcfcfd: ;
-	--oj-neutral-color3:#fafafa: ;
-	--oj-neutral-color4:#f7f7f8: ;
-	--oj-neutral-color5:#f2f2f3: ;
-	--oj-neutral-color6:#ededee: ;
-	--oj-neutral-color7:#e5e6e6: ;
-	--oj-neutral-color8:#e0e1e1: ;
-	--oj-neutral-color9:#cbcccd: ;
-	--oj-neutral-color10:#c6c7c8: ;
-	--oj-neutral-color11:#b1b3b4: ;
-	--oj-neutral-color12:#8a8d8f: ;
-	--oj-neutral-color13:#707375: ;
-	--oj-neutral-color14:#4b4d4e: ;
-	--oj-neutral-color15:#323334: ;
-	--oj-neutral-color16:#252627: ;
-	--oj-neutral-color17:#000: ;
-	--oj-contrast-background-1-color:#323334: ;
-	--oj-font-size:1rem: ;
-	--oj-smallest-font-size:.78571rem: ;
-	--oj-small-font-size:.85714rem: ;
-	--oj-medium-font-size:1.14286rem: ;
-	--oj-large-font-size:1.28571rem: ;
-	--oj-largest-font-size:1.42857rem: ;
-	--oj-text-color:rgba(0,0,0,0.8): ;
-	--oj-primary-text-color:#000: ;
-	--oj-secondary-text-color:rgba(0,0,0,0.7): ;
-	--oj-tertiary-text-color:rgba(0,0,0,0.55): ;
-	--oj-contrast-text-color:#fff: ;
-	--oj-text-color-disabled:rgba(0,0,0,0.38): ;
-	--oj-form-control-label-color:rgba(0,0,0,0.6): ;
-	--oj-link-text-color:#02629f: ;
-	--oj-link-text-color-active:#014a77: ;
-	--oj-link-text-color-visited:#02629f: ;
-	--oj-link-text-color-disabled:rgba(0,0,0,0.38): ;
-	--oj-link-text-decoration:none: ;
-	--oj-link-text-decoration-hover:underline: ;
-	--oj-link-font-weight-active:normal: ;
-	--oj-icon-color:rgba(0,0,0,0.8): ;
-	--oj-icon-color-default:#8a8d8f: ;
-	--oj-icon-color-hover:#76b8e1: ;
-	--oj-icon-color-active:#027bc7: ;
-	--oj-icon-color-selected:#027bc7: ;
-	--oj-icon-color-disabled:#cbcccd: ;
-	--oj-drop-target-1-color:#d9f4fa: ;
-	--oj-drop-target-2-color:#c2eaf3: ;
-}
+
 .oj-flex-bar, .oj-hybrid-applayout-header, .oj-hybrid-applayout-header-no-border, .oj-hybrid-applayout-toolbar-stretch {
 	position: relative;
 }
@@ -413,7 +359,7 @@ a.oj-navigationlist-item-content .oj-navigationlist-item-label {
 	color: #02629f;
 }
 .oj-navigationlist-app-level.oj-navigationlist-horizontal .oj-navigationlist-item-label {
-	font-size: 1rem;
+	font-size: 1.2rem;
 }
 .oj-navigationlist-horizontal .oj-selected > a.oj-navigationlist-item-content > .oj-navigationlist-item-label {
 	color: #02629f;
@@ -685,4 +631,127 @@ html:not([dir='rtl']) .oj-web-applayout-header .oj-flex-bar-start > :first-child
 .oj-buttonset .oj-button-icon-only .oj-button-icon, .oj-button-icon-only .oj-button-icon {
 	margin-right: 0.57rem;
 	margin-left: 0.57rem;
+}
+
+body {
+    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 700
+}
+
+header.masthead {
+    position: relative;
+    background-color: #343a40;
+    background: url(../img/bg-masthead.jpg) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding-top: 8rem;
+    padding-bottom: 8rem
+}
+
+header.masthead .overlay {
+    position: absolute;
+    background-color: #212529;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: .3
+}
+
+header.masthead h1 {
+    font-size: 2rem
+}
+
+@media (min-width: 768px) {
+    header.masthead {
+        padding-top:12rem;
+        padding-bottom: 12rem
+    }
+
+    header.masthead h1 {
+        font-size: 3rem
+    }
+}
+
+.showcase .showcase-text {
+    padding: 3rem
+}
+
+.showcase .showcase-img {
+    min-height: 30rem;
+    background-size: cover
+}
+
+@media (min-width: 768px) {
+    .showcase .showcase-text {
+        padding:7rem
+    }
+}
+
+.features-icons {
+    padding-top: 7rem;
+    padding-bottom: 7rem
+}
+
+.features-icons .features-icons-item {
+    max-width: 20rem
+}
+
+.features-icons .features-icons-item .features-icons-icon {
+    height: 7rem
+}
+
+.features-icons .features-icons-item .features-icons-icon i {
+    font-size: 4.5rem
+}
+
+.features-icons .features-icons-item:hover .features-icons-icon i {
+    font-size: 5rem
+}
+
+.testimonials {
+    padding-top: 7rem;
+    padding-bottom: 7rem
+}
+
+.testimonials .testimonial-item {
+    max-width: 18rem
+}
+
+.testimonials .testimonial-item img {
+    max-width: 12rem;
+    box-shadow: 0 5px 5px 0 #adb5bd
+}
+
+.call-to-action {
+    position: relative;
+    background-color: #343a40;
+    background: url(../img/bg-masthead.jpg) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding-top: 7rem;
+    padding-bottom: 7rem
+}
+
+.call-to-action .overlay {
+    position: absolute;
+    background-color: #212529;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: .3
+}
+
+footer.footer {
+    padding-top: 4rem;
+    padding-bottom: 4rem
 }

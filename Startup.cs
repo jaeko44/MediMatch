@@ -83,9 +83,16 @@ namespace MediMatchRMIT
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=medimatch.db"));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+            })
+           .AddEntityFrameworkStores<ApplicationDbContext>()
+           .AddDefaultTokenProviders();
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
@@ -93,16 +100,16 @@ namespace MediMatchRMIT
 
             services.AddMvc().AddRazorPagesOptions(options =>
             {
-                options.Conventions.AuthorizeFolder("/Account/Manage");
-                options.Conventions.AuthorizePage("/Account/Logout");
+                //options.Conventions.AuthorizeFolder("/Account/Manage");
+                //options.Conventions.AuthorizePage("/Account/Logout");
             });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
                 options.ExpireTimeSpan = TimeSpan.FromDays(1);
                 options.AccessDeniedPath = "/Account/Forbidden/";
-                options.LoginPath = "/Account/LogIn";
-                options.LogoutPath = "/Account/LogOff";
+                //options.LoginPath = "/Account/LogIn";
+                //options.LogoutPath = "/Account/Logout";
             }).AddJwtBearer(o =>
             {
                 o.TokenValidationParameters = _tokenValidationParameters;
