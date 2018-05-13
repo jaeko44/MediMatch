@@ -186,7 +186,7 @@ namespace MediMatchRMIT
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=App}/{id?}");
+                    template: "{controller=Home}/{action=Index}");
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "App" });
