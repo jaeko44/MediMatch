@@ -4,6 +4,24 @@
 }
 
 <h2>@ViewData["Title"]</h2>
+<script>
+            $(document).ready(function () {
+                $('form:first').submit(function (e) {
+                    e.preventDefault();
+                    var $form = $(this);
+                    var formData = $form.serializeObject(); // https://github.com/macek/jquery-serialize-object
+                    formData.grant_type = "password";
+                    var tokenSuccess = registerToken(formData);
+                    if (tokenSuccess == true) {
+                        $form.get(0).submit(); // do the actual register now.
+                    }
+                    else {
+                        $('#error').show();
+                        $('#errorTitle').after(tokenSuccess);
+                    }
+                });
+            });
+</script>
 
 <div class="row">
     <div class="col-md-4">

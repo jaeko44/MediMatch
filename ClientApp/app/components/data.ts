@@ -15,6 +15,7 @@ export class Data {
         //AspNetCore.Identity.Application is currently HTTP-Read Only meaning we cannot capture it in JavaScript. 
         //We need to find a new way to get Identity Authentication of a user when they are logged in.
         let Identity = sessionStorage.getItem("token");
+        this.token = Identity;
         console.log("Identity of user: " + Identity);
         http = new HttpClient().configure(config => {
             config
@@ -22,13 +23,14 @@ export class Data {
                 .withBaseUrl(window.location.origin + "/api/")
                 .withDefaults({
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + this.token
                     }
                 })
                 .withInterceptor({
                     request(request: Request) {
-                        if (Identity != null) {
-                            request.headers.append('Authorization', 'Bearer ' + Identity);
+                        if (this.token != null) {
+                            request.headers.append('Authorization', 'Bearer ' + this.token);
                         }
                         return request;
                     }
@@ -47,6 +49,7 @@ export class Data {
         console.log("Succesfully Authorized: " + success);
         this.loading = false;
     }
+
     testSecurity() {
         this.http.fetch('Secure', {
             method: 'get'
@@ -59,11 +62,11 @@ export class Data {
                 }
                 console.log(response);
             }).catch(error => {
-                console.log(error);
-                return false;
+
             });
         return true;
     }
+
     getFacilities() {
         return new Promise((resolve, reject) => {
             this.http.fetch('Facilities')
@@ -71,42 +74,63 @@ export class Data {
                 .then(data => {
                     resolve(data);
                 }).catch(error => {
-                    console.log(error);
                     reject(error);
                 });
         });
     }
 
     getFacilitiy(id: string) {
-        let facility: any;
-        this.http.fetch('Facilities/' + id)
-            .then(result => result.json() as Promise<any>)
-            .then(data => {
-                facility = data;
-                facility.facilityAddress = facility.location.streetNo + "+" +
-                    facility.location.street + "," +
-                    facility.location.suburb + "+" +
-                    facility.location.postCode;
-                console.log(data);
-            });
-        return facility;
+        return new Promise((resolve, reject) => {
+            let facility: any;
+            this.http.fetch('Facilities/' + id)
+                .then(result => result.json() as Promise<any>)
+                .then(data => {
+                    facility = data;
+                    facility.facilityAddress = facility.location.streetNo + "+" +
+                        facility.location.street + "," +
+                        facility.location.suburb + "+" +
+                        facility.location.postCode;
+                    resolve(facility);
+                }).catch(error => {
+                    reject(error);
+                });
+        });
+    }
+    filterFacilities(filters: any) {
+        return new Promise((resolve, reject) => {
+            let facility: any;
+            this.http.fetch('Facilities/Filter', {
+                headers: new Headers({
+                    'service': filters.service,
+                    'identity': filters.identity,
+                    'location': filters.location, 
+                    'any': filters.any
+                })
+            }).then(result => result.json() as Promise<any>)
+                .then(data => {
+                    resolve(data);
+                }).catch(error => {
+                    reject(error);
+                });
+        });
     }
 
     createFacility(facility: any) {
-        this.http.fetch('api/Facilities', {
-            method: 'post',
-            body: JSON.stringify(facility),
-        }).then(response => {
-            if (response.status == 401) {
-                console.log("Unauthorized request");
-                return false;
-            }
-            console.log(response);
-        }).catch(error => {
-            console.log(error);
-            return false;
+        return new Promise((resolve, reject) => {
+            this.http.fetch('Facilities', {
+                method: 'post',
+                body: JSON.stringify(facility),
+            }).then(response => {
+                if (response.status == 401) {
+                    console.log("Unauthorized request");
+                    reject(response);
+                }
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
         });
-        return true;
+
     }
 
     getMedicalProfessionals() {
@@ -122,19 +146,19 @@ export class Data {
     }
 
     getMedicalProfessional(id: string) {
-        let medicalProfessional: any;
-        this.http.fetch('MedicalProfessionals/' + id)
-            .then(result => result.json() as Promise<any>)
-            .then(data => {
-                medicalProfessional = data;
-                console.log(data);
-            });
-        return medicalProfessional;
+        return new Promise((resolve, reject) => {
+            this.http.fetch('MedicalProfessionals/' + id)
+                .then(result => result.json() as Promise<any>)
+                .then(data => {
+                    resolve(data);
+                }).catch(error => {
+                    reject(error);
+                });
+        });
     }
 
     filterMedicalProfessionals(filters: any) {
         return new Promise((resolve, reject) => {
-            console.log("Filters: Service: " + filters.service + " Identity: " + filters.identity + " Location: " + filters.location);
             let medicalProfessional: any;
             this.http.fetch('MedicalProfessionals/Filter', {
                 headers: new Headers({
@@ -152,20 +176,21 @@ export class Data {
         });
     }
     createMedicalProfessional(medicalProfessional: any) {
-        this.http.fetch('MedicalProfessionals', {
-            method: 'post',
-            body: JSON.stringify(medicalProfessional),
-        }).then(response => {
-            if (response.status == 401) {
-                console.log("Unauthorized request");
-                return false;
-            }
-            console.log(response);
-        }).catch(error => {
-            console.log(error);
-            return false;
-        });
-        return true;
+        return new Promise((resolve, reject) => {
+            this.http.fetch('MedicalProfessionals', {
+                method: 'post',
+                body: JSON.stringify(medicalProfessional),
+            }).then(response => {
+                if (response.status == 401) {
+                    console.log("Unauthorized request");
+                    reject(response);
+                }
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        })
+
     }
 
     getServices() {

@@ -28,7 +28,8 @@ namespace MediMatchRMIT.Controllers
         [HttpGet]
         public IEnumerable<MedicalProfessional> GetMedicalProfessional()
         {
-            return _context.MedicalProfessional;
+            return _context.MedicalProfessional.Include(m => m.Service)
+                                               .Include(m => m.Facility.Location);
         }
 
         // GET: api/MedicalProfessionals/5
@@ -99,7 +100,8 @@ namespace MediMatchRMIT.Controllers
                                           m.Service.Category.Contains(any));
             }
 
-            var medicalProfessionals = await result.Include(m => m.Service).ToListAsync();
+            var medicalProfessionals = await result.Include(m => m.Service)
+                                                   .Include(m => m.Facility.Location).ToListAsync();
 
             if (medicalProfessionals.Count == 0)
             {

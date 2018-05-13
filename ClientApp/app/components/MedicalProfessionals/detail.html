@@ -2,8 +2,6 @@
     <require from="./detail.css"></require>
     <h1>Medical Professional Detail</h1>
 
-    <p>This component demonstrates fetching via UI Parameter.</p>
-
     <p if.bind="!medicalProfessional"><em>Loading...</em></p>
 
     <div if.bind="medicalProfessional" class="container">
@@ -16,7 +14,7 @@
                         <div class="box box-info">
 
                             <div class="box-body">
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <div align="center">
                                         <!-- Temporary Image -->
                                         <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive">
@@ -59,11 +57,12 @@
 
                                     <!-- /.box-body -->
                                 </div>
-                                <div class="col-sm-6">
+                                
+                                <div class="col-sm-12" style="margin-top: 25px;">
                                     <div align="center">
-                                        <!-- Temporary Image -->
+                                        <!-- Temporary Image
                                         <img alt="Facility Pic" src="https://cdn4.iconfinder.com/data/icons/hotel-bold-line-7/48/322-512.png" id="profile-image1" class="img-circle img-responsive">
-                                        <br>
+                                        <br> -->
 
                                         <!-- /input-group -->
                                     </div>

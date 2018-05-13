@@ -1,26 +1,30 @@
 import { inject } from 'aurelia-framework';
 import { Data } from '../data';
+import { Common } from '../common';
 
-@inject(Data)
+@inject(Data, Common)
 export class ListMP {
     private medicalProfessionals: any;
     private services: any;
     private data: Data;
     private filters: any;
+    private common: any;
 
-    constructor(data: Data) {
+    constructor(data: Data, common: Common) {
         this.data = data;
+        this.common = common;
         var medicalProfessionalPromise = this.resolveMedicalProfessionals();
-        var medicalProfessionalPromise = this.resolveServices();
-
+        var servicesPromise = this.resolveServices();
     }
     async resolveMedicalProfessionals() {
         try {
             let data = await this.data.getMedicalProfessionals();
             this.medicalProfessionals = data;
             console.log(this.medicalProfessionals);
+            this.common.notify("GET", "Resolved Medical Professionals", "success");
             return data;
-        } catch(error) {
+        } catch (error) {
+            this.common.notify("GET", "Resolved Medical Professionals", "error");
             console.error(error);
             return null;
         }
@@ -40,8 +44,10 @@ export class ListMP {
             let data = await this.data.filterMedicalProfessionals(this.filters);
             this.medicalProfessionals = data;
             console.log(data);
+            this.common.notify("FILTER", "Medical Professionals", "success");
             return data;
-        } catch(error) {
+        } catch (error) {
+            this.common.notify("FILTER", "Medical Professionals", "warning");
             console.error(error);
             return null;
         }

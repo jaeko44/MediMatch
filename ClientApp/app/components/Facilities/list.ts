@@ -1,16 +1,43 @@
-﻿import { HttpClient } from 'aurelia-fetch-client';
-import { inject } from 'aurelia-framework';
+﻿import { inject } from 'aurelia-framework';
+import { Data } from '../data';
+import { Common } from '../common';
 
-@inject(HttpClient)
+@inject(Data, Common)
 export class ListFacilities {
-    public Facilities: any[];
+    public Facilities: any;
+    private data: Data;
+    private filters: any;
+    private common: any;
 
-    constructor(http: HttpClient) {
 
-        http.fetch('api/Facilities')
-            .then(result => result.json() as Promise<any[]>)
-            .then(data => {
-                this.Facilities = data;
-            });
+    constructor(data: Data, common: Common) {
+        this.data = data;
+        this.common = common;
+        this.resolveFacilities();
+    }
+    async resolveFacilities() {
+        try {
+            let data = await this.data.getFacilities();
+            this.Facilities = data;
+            this.common.notify("GET", "Facilities", "success");
+            return data;
+        } catch (error) {
+            this.common.notify("GET", "Facilities", "warning");
+            console.error(error);
+            return null;
+        }
+    }
+    async SearchFacilities() {
+        try {
+            let data = await this.data.filterFacilities(this.filters);
+            this.Facilities = data;
+            console.log(data);
+            this.common.notify("FILTER", "Facilities", "success");
+            return data;
+        } catch (error) {
+            this.common.notify("FILTER", "Facilities", "warning");
+            console.error(error);
+            return null;
+        }
     }
 }
