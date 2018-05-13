@@ -101,7 +101,7 @@ public class SeedData
             {
                 _context.Service.Add(s);
             }
-            List<Facility> _facilitiyList = new List<Facility> {
+            List<Facility> _facilityList = new List<Facility> {
                 new Facility() {
                 FacilityName = "Albert Street Sports & Spinal Injury Centre",
                   Location = new Address() {
@@ -122,7 +122,7 @@ public class SeedData
                     PostCode = "3054"
                   }
                 },
-                Facility = new Facility() {
+                new Facility() {
                 FacilityName = "Melbourne Clinic",
                   Email = "melbourne@rmit.edu.au",
                   PhoneNo = "04202020",
@@ -137,13 +137,16 @@ public class SeedData
                   }
                 }
              };
-
+            foreach (Facility f in _facilityList)
+            {
+                _context.Facility.Add(f);
+            }
             List<MedicalProfessional> _medicalProfessionaList = new List<MedicalProfessional> {
     new MedicalProfessional() {
      FirstMidName = "Ebony Beth",
       LastName = "Axford",
       Service = _serviceList[3],
-      Facility = _facilitiyList[0],
+      Facility = _facilityList[0],
       PhoneNumber = "03 5622 1111",
       Email = "admin@albertstreetsports.physio",
       HoursActive = new List < HoursActive > {

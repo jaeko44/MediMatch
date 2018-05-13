@@ -18,17 +18,22 @@ namespace MediMatchRMIT.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "MediMatch Contact Page.";
             ViewBag.CurrentPage = "Contact";
             return View();
         }
         public IActionResult App()
         {
-            ViewData["Message"] = "Your aurelia app page.";
+            ViewData["Message"] = "MediMatch Application Page.";
             ViewBag.CurrentPage = "Application";
             return View();
         }
-
+        public IActionResult Privacy()
+        {
+            ViewData["Message"] = "MediMatch Privacy Page.";
+            ViewBag.CurrentPage = "Privacy";
+            return View();
+        }
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
