@@ -17,13 +17,10 @@ Demo of app can be found here: http://medimatchrmit.azurewebsites.net/
 > npm install
 
 > dotnet ef migrations add [migration name] 
-> dotnet ef database update
 
 OR use Package Manager in Visual Studio (recommended)
 
 PM> Add-Migration [migration name] 
-PM> Update-Database
-
 
 - Open Project in Visual Studio
 
