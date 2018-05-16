@@ -30,7 +30,7 @@ namespace MediMatchRMIT.Controllers
         [HttpGet]
         public IEnumerable<Facility> GetFacility()
         {
-            return _context.Facility.Include(m => m.Location);
+            return _context.Facility.Include(m => m.Location.Coordinates);
         }
 
         /// <summary>
@@ -45,12 +45,15 @@ namespace MediMatchRMIT.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            var facility = await _context.Facility.Include(m => m.Location).SingleOrDefaultAsync(m => m.Id == id);
-            //facility.Location = await _context.Address.SingleOrDefaultAsync(m => m.Id == facility.LocationId);
+            
+            var facility = await _context.Facility.Include(m => m.Location.Coordinates).SingleOrDefaultAsync(m => m.Id == id);
+            
             if (facility == null)
             {
                 return NotFound();
+            }
+            else {
+                facility.SetCoordinates();
             }
 
             return Ok(facility);
@@ -115,7 +118,7 @@ namespace MediMatchRMIT.Controllers
                                           m.PhoneNo.Contains(any));
             }
 
-            var facilities = await result.Include(m => m.Location)
+            var facilities = await result.Include(m => m.Location.Coordinates)
                                          .Include(m => m.FacilitySupport).ToListAsync();
 
             if (facilities.Count == 0)
