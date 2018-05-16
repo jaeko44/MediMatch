@@ -11,6 +11,9 @@ namespace MediMatchRMIT.Models
 {
     public class MedicalProfessional
     {
+        public MedicalProfessional() {
+
+        }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }

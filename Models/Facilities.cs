@@ -1,15 +1,42 @@
-﻿using System;
+﻿using GoogleMaps.LocationServices;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 
 namespace MediMatchRMIT.Models
 {
     public class Facility
     {
+        public Facility()
+        {
+
+        }
+        public void SetCoordinates()
+        {
+            try
+            {
+                var address = $"{Location.StreetNo} {Location.Street}, {Location.Suburb} , {Location.State} {Location.PostCode}";
+                string apiKey = "AIzaSyBkkj6qQ0qLfTGHYJPuL9asFAAk9hlguJ4";
+                var locationService = new GoogleLocationService(apiKey);
+                var point = locationService.GetLatLongFromAddress(address);
+
+                Location.Coordinates = new DecimalDegrees() {
+                    Id = Guid.NewGuid(),
+                    Latitude = point.Latitude,
+                    Longitude = point.Longitude
+                };
+                Console.WriteLine($"GET (Coordinates) {Location.Coordinates.Latitude} & {Location.Coordinates.Longitude} of facility: {FacilityName}");
+                Debug.WriteLine($"GET (Coordinates) {Location.Coordinates.Latitude} & {Location.Coordinates.Longitude} of facility: {FacilityName}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex);
+                Debug.WriteLine("Error: " + ex);
+            }
+            
+        }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
@@ -44,8 +71,8 @@ namespace MediMatchRMIT.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longtitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
     public class FacilitySupport {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

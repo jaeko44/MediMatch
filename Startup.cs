@@ -81,7 +81,7 @@ namespace MediMatchRMIT
         {
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=medimatch.db"));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=medimatch-v1.1.db"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
