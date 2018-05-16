@@ -50,6 +50,11 @@ export class Data {
         this.loading = false;
     }
 
+    getUserCoords() {
+        return new Promise((resolve, reject) => {
+
+        });
+    }
     testSecurity() {
         this.http.fetch('Secure', {
             method: 'get'
