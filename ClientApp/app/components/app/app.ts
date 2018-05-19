@@ -7,8 +7,28 @@ export class App {
     configureRouter(config: RouterConfiguration, router: Router) {
         var token = sessionStorage.getItem('token');
         let isAuthenticated = false;
+        let isAdmin = false;
+        let isMedicalProfessional = false;
+        let isPatient = false;
+        let isModerator = false;
         if (token != null) {
             isAuthenticated = true;
+            var decodedToken = this.parseJwt(token);
+            console.log("Decoded Token of User: ")
+            console.log(decodedToken);
+            var userRole = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            if (userRole == "Admin") {
+                isAdmin = true;
+            }
+            if (userRole == "MedicalProfessional") {
+                isMedicalProfessional = true;
+            }
+            if (userRole == "Moderator") {
+                isModerator = true;
+            }
+            if (userRole == "Patient") {
+                isPatient = true;
+            }
         }
         config.title = 'MediMatchRMIT';
         config.map([{
@@ -30,10 +50,17 @@ export class App {
             name: 'MedicalProfessionalCreate',
             settings: { icon: 'user-md' },
             moduleId: PLATFORM.moduleName('../MedicalProfessionals/create'),
-            nav: isAuthenticated,
+            nav: isAdmin || isModerator,
             title: 'Medical Professional Create'
         }, {
-                route: 'medical/detail/:id/',
+            route: 'medical/update',
+            name: 'MedicalProfessionalUpdate',
+            settings: { icon: 'user-md' },
+            moduleId: PLATFORM.moduleName('../MedicalProfessionals/update'),
+            nav: isMedicalProfessional,
+            title: 'Medical Professional Update'
+        }, {
+            route: 'medical/detail/:id/',
             name: 'MedicalProfessionalDetails',
             moduleId: PLATFORM.moduleName('../MedicalProfessionals/detail'),
             nav: false,
@@ -47,19 +74,31 @@ export class App {
             title: 'Facilities List'
         },{
             route: 'facilities/create',
-            name: 'FacilitiesList',
+            name: 'FacilitiesCreate',
             settings: { icon: 'plus-square' },
             moduleId: PLATFORM.moduleName('../Facilities/create'),
-            nav: isAuthenticated,
+            nav: isAdmin || isModerator,
             title: 'Facilities Create'
         }, {
-                route: 'facilities/detail/:id/',
-            name: 'FacilitiesList',
+            route: 'facilities/update',
+            name: 'FacilitiesUpdate',
+            settings: { icon: 'plus-square' },
+            moduleId: PLATFORM.moduleName('../Facilities/create'),
+            nav: isMedicalProfessional,
+            title: 'Facility Update'
+        }, {
+            route: 'facilities/detail/:id/',
+            name: 'FacilitiesDetail',
             moduleId: PLATFORM.moduleName('../Facilities/detail'),
             nav: false,
             title: 'Facilities Detail'
         }]);
 
         this.router = router;
+    }
+    parseJwt(token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(window.atob(base64));
     }
 }
