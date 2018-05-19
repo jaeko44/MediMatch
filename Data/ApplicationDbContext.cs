@@ -472,6 +472,16 @@ public class SeedData
           Suburb = "BLACKBURN", State = "Vic",
           PostCode = "3130"
         }
+      },
+      new Facility() {//39
+       FacilityName = "Victorian Counselling & Psychological Services - Coolaroo",
+        Location = new Address() {
+         StreetNo = "510",
+          Street = "Barry ROAD",
+          Suburb = "COOLAROO",
+          State = "Vic",
+          PostCode = "3048"
+        }
       }
              };
             foreach (Facility f in _facilityList)
@@ -1787,16 +1797,7 @@ public class SeedData
      FirstMidName = "Burcu",
       LastName = "Akdeniz",
       Service = _serviceList[4],
-      Facility = new Facility() {
-       FacilityName = "Victorian Counselling & Psychological Services - Coolaroo",
-        Location = new Address() {
-         StreetNo = "510",
-          Street = "Barry ROAD",
-          Suburb = "COOLAROO",
-          State = "Vic",
-          PostCode = "3048"
-        }
-      },
+      Facility = _facilityList[39],
       Email = "reception@vcps.com.au",
       PhoneNumber = "02 9419 7172",
       HoursActive = new List < HoursActive > {
@@ -1830,16 +1831,7 @@ public class SeedData
      FirstMidName = "Aysen",
       LastName = "Akdenk-Ozgurler",
       Service = _serviceList[4],
-      Facility = new Facility() {
-       FacilityName = "Victorian Counselling & Psychological Services - Coolaroo",
-        Location = new Address() {
-         StreetNo = "510",
-          Street = "Barry ROAD",
-          Suburb = "COOLAROO",
-          State = "Vic",
-          PostCode = "3048"
-        }
-      },
+      Facility = _facilityList[39],
       Email = "reception@vcps.com.au",
       PhoneNumber = "02 9419 7172",
       HoursActive = new List < HoursActive > {
@@ -7436,6 +7428,6 @@ public class SeedData
                 facility.SetCoordinates();
             }
             await _context.SaveChangesAsync();
-        }
+        } 
     }
 }
