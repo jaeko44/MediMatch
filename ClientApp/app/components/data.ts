@@ -139,7 +139,22 @@ export class Data {
         });
 
     }
-
+    updateFacility(facility: any) {
+        return new Promise((resolve, reject) => {
+            this.http.fetch('MedicalProfessionals/' + facility.Id, {
+                method: 'put',
+                body: JSON.stringify(facility),
+            }).then(response => {
+                if (response.status == 401) {
+                    console.log("Unauthorized request");
+                    reject(response);
+                }
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        })
+    }
     getMedicalProfessionals() {
         return new Promise((resolve, reject) => {
         this.http.fetch('MedicalProfessionals')
@@ -165,6 +180,9 @@ export class Data {
 
     getUserId() {
         var token = sessionStorage.getItem('token');
+        if (token == null) {
+            return null;
+        }
         var decodedToken = this.parseJwt(token);
         var userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
         console.log(userId);
@@ -172,9 +190,14 @@ export class Data {
     }
 
     parseJwt(token) {
-        var base64Url = token.split('.')[1];
-        var base64 = base64Url.replace('-', '+').replace('_', '/');
-        return JSON.parse(window.atob(base64));
+        try {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace('-', '+').replace('_', '/');
+            return JSON.parse(window.atob(base64));
+        }
+        catch(error) {
+            console.error(error);
+        }
     }
     getMedicalProfessional(id: string) {
         return new Promise((resolve, reject) => {
