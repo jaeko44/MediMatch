@@ -33,6 +33,7 @@ namespace MediMatchRMIT.Models
         public Guid FacilityId { get; set; }
         [NotMapped]
         public Image Image {get; set;}
+        public string UserId { get; set; }
     }
     public class Image {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
