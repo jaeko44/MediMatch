@@ -9,6 +9,8 @@ using MediMatchRMIT.Data;
 using MediMatchRMIT.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MediMatchRMIT.Extensions;
+
 
 namespace MediMatchRMIT.Controllers
 {
@@ -93,29 +95,29 @@ namespace MediMatchRMIT.Controllers
             IQueryable<Facility>  result = _context.Facility;
 
             if (location != null && location != "undefined") {
-                result = result.Where(m => m.Location.Suburb.Contains(location) ||
-                                           m.Location.State.Contains(location) ||
-                                           m.Location.Street.Contains(location) ||
-                                           m.Location.PostCode.Contains(location));
+                result = result.Where(m => m.Location.Suburb.Contains(location, StringComparison.OrdinalIgnoreCase) ||
+                                           m.Location.State.Contains(location, StringComparison.OrdinalIgnoreCase) ||
+                                           m.Location.Street.Contains(location, StringComparison.OrdinalIgnoreCase) ||
+                                           m.Location.PostCode.Contains(location, StringComparison.OrdinalIgnoreCase));
             }
 
             if (identity != null && identity != "undefined") {
-                result = result.Where(m=> m.FacilityName.Contains(identity) ||
-                                          m.Email.Contains(identity) ||
-                                          m.notes.Contains(identity) ||
-                                          m.PhoneNo.Contains(identity));
+                result = result.Where(m=> m.FacilityName.Contains(identity, StringComparison.OrdinalIgnoreCase) ||
+                                          m.Email.Contains(identity, StringComparison.OrdinalIgnoreCase) ||
+                                          m.notes.Contains(identity, StringComparison.OrdinalIgnoreCase) ||
+                                          m.PhoneNo.Contains(identity, StringComparison.OrdinalIgnoreCase));
             }
 
             if (any != null && any != "undefined")
             {
-                result = result.Where(m => m.FacilityName.Contains(any) ||
-                                          m.notes.Contains(any) ||
-                                          m.Email.Contains(any) ||
-                                          m.Location.Suburb.Contains(any) ||
-                                          m.Location.State.Contains(any) ||
-                                          m.Location.Street.Contains(any) ||
-                                          m.Location.PostCode.Contains(any) ||
-                                          m.PhoneNo.Contains(any));
+                result = result.Where(m => m.FacilityName.Contains(any, StringComparison.OrdinalIgnoreCase) ||
+                                          m.notes.Contains(any, StringComparison.OrdinalIgnoreCase) ||
+                                          m.Email.Contains(any, StringComparison.OrdinalIgnoreCase) ||
+                                          m.Location.Suburb.Contains(any, StringComparison.OrdinalIgnoreCase) ||
+                                          m.Location.State.Contains(any, StringComparison.OrdinalIgnoreCase) ||
+                                          m.Location.Street.Contains(any, StringComparison.OrdinalIgnoreCase) ||
+                                          m.Location.PostCode.Contains(any, StringComparison.OrdinalIgnoreCase) ||
+                                          m.PhoneNo.Contains(any, StringComparison.OrdinalIgnoreCase));
             }
 
             var facilities = await result.Include(m => m.Location.Coordinates)
@@ -170,7 +172,7 @@ namespace MediMatchRMIT.Controllers
             return NoContent();
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, Manager, MedicalProfessional")]
         /// <summary>
         /// Add a new Facility
         /// POST: api/Facilities
