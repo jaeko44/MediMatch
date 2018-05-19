@@ -20,9 +20,9 @@ export class DetailFacility {
             .then(result => result.json() as Promise<facility>)
             .then(data => {
                 this.facility = data;
-                this.facilityAddress = this.facility.location.streetNo + "+" +
-                    this.facility.location.street + "," +
-                    this.facility.location.suburb + "+" +
+                this.facilityAddress = this.facility.location.streetNo + "+ " +
+                    this.facility.location.street + ", " +
+                    this.facility.location.suburb + " + " +
                     this.facility.location.postCode;
                 this.clientAddress = this.facilityAddress;
                 this.getLocation();
@@ -34,6 +34,7 @@ export class DetailFacility {
             navigator.geolocation.getCurrentPosition((position) => {
                 // create the map here, because we only have access to position inside of this function
                 // even if we store in a global variable, it only gets updated once this callback runs
+                console.log(position);
                 this.http.fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + "," + position.coords.longitude + "&key=" + this.googleMapsKey)
                     .then(result => result.json() as Promise<any>)
                     .then(data => {
