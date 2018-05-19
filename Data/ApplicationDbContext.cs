@@ -7429,9 +7429,13 @@ public class SeedData
     }
    };
             _context.AddRange(_medicalProfessionaList);
+            var facilities = _context.Facility;
+            Console.WriteLine("This can take a while, we will start loading the coordinates of each facility and enter all the records into the DB (Happens once per seed)");
+            foreach (Facility facility in facilities.Local)
+            {
+                facility.SetCoordinates();
+            }
             await _context.SaveChangesAsync();
         }
     }
-
-
 }
