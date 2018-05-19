@@ -9,6 +9,7 @@ export class Data {
     private loading: boolean = false;
     public BaseUrl: string;
     private token: string;
+    public userId: string;
 
 
     constructor(http: HttpClient, aurelia: Aurelia) {
@@ -16,6 +17,7 @@ export class Data {
         //We need to find a new way to get Identity Authentication of a user when they are logged in.
         let Identity = sessionStorage.getItem("token");
         this.token = Identity;
+        this.userId = this.getUserId();
         console.log("Identity of user: " + Identity);
         http = new HttpClient().configure(config => {
             config
@@ -149,7 +151,31 @@ export class Data {
             });
         });
     }
+    getLoggedInMedicalProfessional() {
+        return new Promise((resolve, reject) => {
+            this.http.fetch('MedicalProfessionals/ByUserId/')
+                .then(result => result.json() as Promise<any[]>)
+                .then(data => {
+                    resolve(data);
+                }).catch(error => {
+                    reject(error);
+                });
+            });
+    }
 
+    getUserId() {
+        var token = sessionStorage.getItem('token');
+        var decodedToken = this.parseJwt(token);
+        var userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+        console.log(userId);
+        return userId;
+    }
+
+    parseJwt(token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(window.atob(base64));
+    }
     getMedicalProfessional(id: string) {
         return new Promise((resolve, reject) => {
             this.http.fetch('MedicalProfessionals/' + id)
@@ -181,6 +207,9 @@ export class Data {
         });
     }
     createMedicalProfessional(medicalProfessional: any) {
+        medicalProfessional.userId = this.userId;
+        console.log("Sending following MP");
+        console.log(medicalProfessional);
         return new Promise((resolve, reject) => {
             this.http.fetch('MedicalProfessionals', {
                 method: 'post',
@@ -196,6 +225,22 @@ export class Data {
             });
         })
 
+    }
+    updateMedicalProfessional(medicalProfessional: any) {
+        return new Promise((resolve, reject) => {
+            this.http.fetch('MedicalProfessionals/' + medicalProfessional.Id, {
+                method: 'put',
+                body: JSON.stringify(medicalProfessional),
+            }).then(response => {
+                if (response.status == 401) {
+                    console.log("Unauthorized request");
+                    reject(response);
+                }
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        })
     }
 
     getServices() {
