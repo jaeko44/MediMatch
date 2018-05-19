@@ -1,13 +1,15 @@
 import { HttpClient } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
+import { Data } from '../data';
 
-@inject(HttpClient)
+@inject(HttpClient, Data)
 export class DetailMP {
     http: HttpClient;
     public medicalProfessional: any;
     public medicalId: number;
+    private data: Data;
 
-    constructor(http: HttpClient) {
+    constructor(http: HttpClient, data: Data) {
         this.http = http;
     }
     activate(params: { id: string; }) {

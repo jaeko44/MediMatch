@@ -4,27 +4,62 @@
 }
 
 <h2>@ViewData["Title"]</h2>
+<script>
+            $(document).ready(function () {
+                $('form:first').submit(function (e) {
+                    e.preventDefault();
+                    var $form = $(this);
+                    var formData = $form.serializeObject(); // https://github.com/macek/jquery-serialize-object
+                    console.log(formData);
+                    formData.grant_type = "password";
+                    localStorage.setItem("user_form", formData);
+                    localStorage.setItem("user2_form", $form);
+                    localStorage.setItem("Email", document.getElementById("Email").value)
+                    localStorage.setItem("Password", document.getElementById("Password").value)
+                    $form.get(0).submit(); // do a user log-in
+                    //var userSuccess = registerUser(formData);
+                    //if (userSuccess == true) {
+                    //    setTimeout(function () {
+                    //        var tokenSuccess = getToken(formData);
+                    //    }, 1000); // How long do you want the delay to be (in milliseconds)? 
+                    //    if (tokenSuccess == true) {
+                    //        $form.get(0).submit(); // do a user log-in
+                    //    }
+                    //}
+                    //else {
+                    //    $("#error").html("Error registering account: " + userSuccess);
+                    //}
+                });
+            });
+</script>
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" asp-controller="Account" asp-action="Register" method="post">
             <h4>Create a new account.</h4>
             <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
+            <div asp-validation-summary="All" id="error" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" id="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" id="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ConfirmPassword"></label>
                 <input asp-for="ConfirmPassword" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Role"></label>
+                <select asp-for="Role" class="form-control">
+                    <option value="Patient">Patient</option>
+                    <option value="MedicalProfessional">Medical Professional</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-default">Register</button>
         </form>

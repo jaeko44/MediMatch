@@ -1,11 +1,51 @@
 ﻿<template>
+        <require from="../sort"></require>
+        <require from="../take"></require>
         <h1>Facilities List</h1>
-    
-        <p>This component demonstrates fetching facilities the server.</p>
-    
         <p if.bind="!Facilities"><em>Loading...</em></p>
-    
-        <table if.bind="Facilities" class="table">
+        <form role="form" submit.delegate="SearchFacilities()">
+            <div class="input-group" id="adv-search">
+                <input type="text" class="form-control" value.bind="filters.any" placeholder="Search for medical professionals" />
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button type="button" class="btn btn-default" data-toggle="dropdown" aria-expanded="false">
+                                <span class="caret"></span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="contain">Identity</label>
+                                        <input class="form-control" value.bind="filters.identity" type="text" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contain">Location</label>
+                                        <input class="form-control" value.bind="filters.location" type="text" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <label for="column">Sort By:</label>
+        <select id="column" ref="column">
+          <option value="distance">Distance</option>
+          <option value="facilityName">Facility Name</option>
+        </select>
+  
+        <select ref="direction">
+        <option value="ascending">Ascending</option>
+          <option value="descending">Descending</option>
+        </select>
+        <table if.bind="disabled" class="table">
             <thead>
                 <tr>
                     <th>Facility Name</th>
@@ -27,5 +67,33 @@
                 </tr>
             </tbody>
         </table>
+
+        <div if.bind="Facilities" class="col-md-12 listing-block">
+            <div class="media" repeat.for="facility of Facilities | sort:column.value:direction.value | take:250">
+                <div class="fav-box"> <!-- Only for logged in users -->
+                    <i class="fa fa-bookmark" aria-hidden="true"></i>
+                </div>
+                <img class="d-flex align-self-start" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
+                    alt="Generic placeholder image">
+                <div class="media-body pl-3">
+                    <div class="title"><a href="#/facilities/detail/${facility.id}">${facility.facilityName}
+                    </a>
+                    </div>
+                    <div class="stats">
+                        <span><i class="fa fa-envelope"></i>${ facility.email }</span>
+                        <span><i class="fa fa-phone"></i>${ facility.phoneNo }</span>
+                        <span><i class="fa fa-globe"></i>${facility.distance ? facility.distance : ''} Km</span>
+                    </div>
+                    <div class="address">
+                        ${facility.location.streetNo}
+                        ${facility.location.street},
+                        ${facility.location.suburb}
+                        ${facility.location.state},
+                        ${facility.location.postcode}
+                    </div>
+                    <a href="#/medical/detail/${medicalProfessional.id}">View</a>
+                </div>
+            </div>
+        </div>
     </template>
     

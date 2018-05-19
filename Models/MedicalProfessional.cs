@@ -5,11 +5,15 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace MediMatchRMIT.Models
 {
     public class MedicalProfessional
     {
+        public MedicalProfessional() {
+
+        }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
@@ -27,6 +31,17 @@ namespace MediMatchRMIT.Models
         public List<Review> Reviews { get; set; }
         public Facility Facility { get; set; }
         public Guid FacilityId { get; set; }
+        [NotMapped]
+        public Image Image {get; set;}
+        public string UserId { get; set; }
+    }
+    public class Image {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public Guid Id { get; set; }
+        public string ImageName { get; set; }
+        public string ImagePath {get; set;}
+        public IFormFile  ImageFile {get; set;}
     }
     public class Service
     {

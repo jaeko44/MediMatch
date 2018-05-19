@@ -9,12 +9,13 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/animate.css" />
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
     </environment>
-    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome-all.css" />
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
@@ -28,17 +29,17 @@
                 crossorigin="anonymous"
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     @RenderSection("Scripts", required: false)
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://unpkg.com/popper.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/tooltip.js" crossorigin="anonymous"></script>
     <script src="~/lib/jquery-tagseditor/jquery.tag-editor.min.js"></script>
+    <script src="~/lib/jquery-cookie/jquery.cookie.js"></script>
     <script src="~/lib/jquery-serialize/jquery.serialize-object.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
@@ -171,6 +172,7 @@
         <hr />
         <footer>
             <p>&copy; 2018 - MediMatchRMIT</p>
+            <a class="" role="button" aria-pressed="false" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
         </footer>
     </div>
 

@@ -6,6 +6,17 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
+    <script>
+    $(document).ready(function () {
+        $('form:first').submit(function (e) {
+            e.preventDefault();
+            var $form = $(this);
+            var logout = clearToken();
+            $form.get(0).submit(); 
+
+        });
+    });
+</script>
     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-right">
             <li>

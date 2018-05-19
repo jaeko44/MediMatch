@@ -24,6 +24,7 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 using System.IO;
+using MediMatchRMIT.Controllers;
 
 namespace MediMatchRMIT
 {
@@ -81,11 +82,18 @@ namespace MediMatchRMIT
         {
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=medimatch.db"));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=medimatch-v1.1.db"));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+            })
+           .AddEntityFrameworkStores<ApplicationDbContext>()
+           .AddDefaultTokenProviders();
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
@@ -93,16 +101,16 @@ namespace MediMatchRMIT
 
             services.AddMvc().AddRazorPagesOptions(options =>
             {
-                options.Conventions.AuthorizeFolder("/Account/Manage");
-                options.Conventions.AuthorizePage("/Account/Logout");
+                //options.Conventions.AuthorizeFolder("/Account/Manage");
+                //options.Conventions.AuthorizePage("/Account/Logout");
             });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
                 options.ExpireTimeSpan = TimeSpan.FromDays(1);
                 options.AccessDeniedPath = "/Account/Forbidden/";
-                options.LoginPath = "/Account/LogIn";
-                options.LogoutPath = "/Account/LogOff";
+                //options.LoginPath = "/Account/LogIn";
+                //options.LogoutPath = "/Account/Logout";
             }).AddJwtBearer(o =>
             {
                 o.TokenValidationParameters = _tokenValidationParameters;
@@ -149,7 +157,7 @@ namespace MediMatchRMIT
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedData dbSeed, ApplicationDbContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedData dbSeed, ApplicationDbContext context, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -188,6 +196,14 @@ namespace MediMatchRMIT
             {
                 context.Database.Migrate();
                 dbSeed.Seed().Wait();
+                var adminUser = new ApplicationUser
+                {
+
+                    UserName = Configuration["AppSettings:Email"],
+                    Email = Configuration["AppSettings:Email"],
+                };
+                string adminPassword = Configuration.GetSection("AppSettings:Password").Value;
+                CreateRoles(serviceProvider, adminUser, adminPassword).Wait();
             }
             catch (Exception ex)
             {
@@ -196,5 +212,39 @@ namespace MediMatchRMIT
             }
 
         }
-}
+
+        public async Task CreateRoles(IServiceProvider serviceProvider, ApplicationUser adminUser, string adminPassword)
+        {
+            //initializing custom roles 
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            string[] roleNames = { "Admin", "Moderators", "Patient", "MedicalProfessional" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+            var _user = await UserManager.FindByEmailAsync(adminUser.Email);
+
+            if (_user == null)
+            {
+                var createPowerUser = await UserManager.CreateAsync(adminUser, adminPassword);
+                if (createPowerUser.Succeeded)
+                {
+                    //here we tie the new user to the role
+                    await UserManager.AddToRoleAsync(adminUser, "Admin");
+                }
+            }
+            else
+            {
+                await UserManager.AddToRoleAsync(adminUser, "Admin");
+            }
+        }
+
+    }
 }

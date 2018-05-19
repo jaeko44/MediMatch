@@ -1,0 +1,69 @@
+<template>
+    <h1>Medical Professionals Update</h1>
+    <link rel="stylesheet" href="/lib/jquery-tagseditor/jquery.tag-editor.css">
+
+    <form role="form" submit.delegate="UpdateMedicalProfessional()">
+        <div class="form-group">
+            <label for="firstMidName">First Name</label>
+            <input type="text" value.bind="medicalProfessional.firstMidName" id="firstMidName" placeholder="First Name">
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" value.bind="medicalProfessional.lastName" id="lastName" placeholder="Last Name">
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" value.bind="medicalProfessional.phoneNumber" id="phoneNumber" placeholder="+61 420 000000">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" value.bind="medicalProfessional.email" id="email" placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+            <label for="serviceType">Service Type</label>
+            <select class="form-control" id="serviceType" value.bind="medicalProfessional.serviceId">
+                <option value="null">Select a Service Type</option>
+                <option repeat.for="service of services" value="${service.id}">${ service.category}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="serviceType">Facility Location</label>
+            <select class="form-control" id="facilityChosen" value.bind="medicalProfessional.facilityId">
+                <option value="null">Select a facility Location</option>
+                <option repeat.for="facility of facilities" value="${facility.id}">${ facility.facilityName} : ${facility.location.suburb}</option>
+            </select>
+        </div>
+        <!--
+        <div class="form-group">
+            <label for="serviceType">Service Type 2</label>
+            <select class="form-control" id="serviceType" value.bind="medicalProfessional.services[1].category"
+                <option>General Practice</option>
+                <option>Dentists</option>
+                <option>Pharmacy</option>
+                <option>Physiotherapy</option>
+                <option>Counseling</option>
+                <option>Hospitals</option>
+            </select>
+        </div>
+             -->
+        <!-- We need to add some logic that allows us to search medicalProfessional.services[0].category with all available sub categories,
+
+        for example, a dentist should have a few sub categories that the user can select under 'Secondary Services'
+
+           <div class="form-group">
+                <label for="serviceType">Secondary Services</label>
+                <select class="form-control" id="serviceType" value.bind="medicalProfessional.services[1].category"
+                   <option>LOGIC TO RETRIEVE SUB CATEGORIES</option>
+                </select>
+            </div>
+        -->
+
+
+        <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea class="form-control" id="notes" value.bind="medicalProfessional.notes" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Medical Professional</button>
+    </form>
+</template>
