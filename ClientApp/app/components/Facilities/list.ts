@@ -16,7 +16,6 @@ export class ListFacilities {
         this.data = data;
         this.common = common;
         this.resolveFacilities();
-        this.getLocation();
         this.sort = {
             property: "facility.facilityName",
             direction: "ascending"
@@ -26,8 +25,8 @@ export class ListFacilities {
         try {
             let data = await this.data.getFacilities();
             this.Facilities = data;
+            this.getLocation();
             this.common.notify("GET", "Facilities", "success");
-            this.CaclulateFacilitiesDistance();
             return data;
         } catch (error) {
             this.common.notify("GET", "Facilities", "warning");
@@ -46,9 +45,6 @@ export class ListFacilities {
                 this.Facilities = data;
                 this.common.notify("FILTER", "Facilities", "success");
             }
-            if (this.filters.distance == true) {
-                this.SortFacilitiesByDistance();
-            }
             else {
                 this.common.notify("FILTER", "Filters missing", "warning");
             }
@@ -61,33 +57,23 @@ export class ListFacilities {
         }
     }
 
-    SortFacilitiesByDistance() {
-        try {
-            let data = this.Facilities;
-            this.sort = {
-                property: "facility.distance",
-                direction: "ascending"
-            }
-            console.log(this.sort);
-            this.CaclulateFacilitiesDistance();
-        } catch (error) {
-            this.common.notify("Sort", "Facilities by Location", "warning");
-            console.error(error);
+    CaclulateFacilitiesDistance() {
+        var lat2 = self.sessionStorage.getItem("usr_latitude");
+        var long2 = self.sessionStorage.getItem("usr_longitude");
+        if (lat2 != undefined || long2 != undefined) {
+            this.Facilities.forEach(facility => {
+                var lat1 = facility.location.coordinates.latitude;
+                var long1 = facility.location.coordinates.longitude
+
+                var distance = this.getDistanceFromLatLonInKm(lat1, long1, lat2, long2);
+                facility.distance = distance;
+                console.log(distance);
+            });
+        }
+        else {
+            this.common.notify("CALCULATE", "Distance (user coordinates missing)", "warning");
         }
 
-    }
-
-    CaclulateFacilitiesDistance() {
-        this.Facilities.forEach(facility => {
-            var lat1 = facility.location.coordinates.latitude;
-            var long1 = facility.location.coordinates.longitude
-            var lat2 = self.sessionStorage.getItem("usr_latitude");
-            var long2 = self.sessionStorage.getItem("usr_longitude");
-
-            var distance = this.getDistanceFromLatLonInKm(lat1, long1, lat2, long2);
-            facility.distance = distance;
-            console.log(distance);
-        });
     }
 
     getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
@@ -120,6 +106,7 @@ export class ListFacilities {
         } else {
             this.location = null;
         }
+        this.CaclulateFacilitiesDistance();
     }
     positionFound(position) {
         console.log("Finally found position");

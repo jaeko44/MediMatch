@@ -32,12 +32,30 @@
                                         <!-- ${ facility.location.state } -->
                                         ${ facility.location.postCode}
                                     </div>
-                                    <iframe width="600" height="450" frameborder="0" style="border:0"
-                                    src="https://www.google.com/maps/embed/v1/directions?key=${googleMapsKey}
+
+                                    <iframe show.bind="showDirections" width="600" height="450" frameborder="0" style="border:0"
+                                            src="https://www.google.com/maps/embed/v1/directions?key=${googleMapsKey}
                                             &origin=${clientAddress}
                                             &destination=${facilityAddress}
-                                            &avoid=tolls|highways">
-                                    </iframe>
+                                            &avoid=tolls|highways"></iframe>
+
+                                    <iframe show.bind="showDirections == false" width="600" height="450" frameborder="0" style="border:0"
+                                            src="https://www.google.com/maps/embed/v1/place?key=${googleMapsKey}
+                                                &q=${facilityAddress}"></iframe>
+
+
+                                    <small class="text-uppercase text-muted"><b>Google Maps</b></small>
+                                    <div class="form-group">
+                                        <div class="checkbox checbox-switch switch-primary">
+                                            <label>
+                                                <input type="checkbox" value="true" checked.bind="showDirections" />
+                                                <span></span>
+                                                Show Directions
+                                            </label>
+                                        </div>
+                                    </div>
+
+
                                     <div class="clearfix"></div>
                                     <div class="bot-border"></div>
                                     <div class="col-sm-5 col-xs-6 tital ">Email:</div><div class="col-sm-7">${ facility.email }</div>
