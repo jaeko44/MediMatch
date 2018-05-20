@@ -49,8 +49,10 @@ namespace MediMatchRMIT.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=medimatch.db");
+            optionsBuilder.UseSqlite("Data Source=medimatch-v1.2.db");
         }
+
+        public DbSet<MediMatchRMIT.Models.ApplicationUser> ApplicationUser { get; set; }
     }
 
 }
@@ -59,7 +61,7 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Applicatio
     public ApplicationDbContext CreateDbContext(string[] args)
     {
         var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-        builder.UseSqlite("Data Source=medimatch.db");
+        builder.UseSqlite("Data Source=medimatch-v1.2.db");
         return new ApplicationDbContext(builder.Options);
     }
 }
