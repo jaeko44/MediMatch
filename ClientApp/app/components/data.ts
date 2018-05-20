@@ -74,6 +74,70 @@ export class Data {
         return true;
     }
 
+    createUser(user: any) {
+        return new Promise((resolve, reject) => {
+            this.http.fetch('ApplicationUsers', {
+                method: 'post',
+                body: JSON.stringify(user),
+            }).then(response => {
+                if (response.status == 401) {
+                    console.log("Unauthorized request");
+                    reject(response);
+                }
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+
+    }
+
+    getUsers() {
+        return new Promise((resolve, reject) => {
+            this.http.fetch('ApplicationUsers')
+                .then(result => result.json() as Promise<any[]>)
+                .then(data => {
+                    resolve(data);
+                }).catch(error => {
+                    reject(error);
+                });
+        });
+    }
+
+    getUser(id: string) {
+        return new Promise((resolve, reject) => {
+            let facility: any;
+            this.http.fetch('ApplicationUsers/' + id)
+                .then(result => result.json() as Promise<any>)
+                .then(data => {
+                    facility = data;
+                    facility.facilityAddress = facility.location.streetNo + "+" +
+                        facility.location.street + "," +
+                        facility.location.suburb + "+" +
+                        facility.location.postCode;
+                    resolve(facility);
+                }).catch(error => {
+                    reject(error);
+                });
+        });
+    }
+
+    updateUser(user: any) {
+        return new Promise((resolve, reject) => {
+            this.http.fetch('ApplicationUsers/' + user.Id, {
+                method: 'put',
+                body: JSON.stringify(user),
+            }).then(response => {
+                if (response.status == 401) {
+                    console.log("Unauthorized request");
+                    reject(response);
+                }
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        })
+    }
     getFacilities() {
         return new Promise((resolve, reject) => {
             this.http.fetch('Facilities')
