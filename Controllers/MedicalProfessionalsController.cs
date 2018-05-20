@@ -58,8 +58,9 @@ namespace MediMatchRMIT.Controllers
         }
 
         // GET: api/MedicalProfessionals/ByUserId
+        [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Route("ByUserId")] 
+        [Route("ByUserId")]
         public async Task<IActionResult> GetLoggedInMedicalProfessional()
         {
             if (!ModelState.IsValid)
