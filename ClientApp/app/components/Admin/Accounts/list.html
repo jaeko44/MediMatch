@@ -1,0 +1,95 @@
+<template>
+    <h1>MediMatch Users</h1>
+
+    <p if.bind="!applicationUsers">
+        <em>Loading...</em>
+    </p>
+    <form role="form" submit.delegate="Searchusers()">
+        <div class="input-group" id="adv-search">
+            <input type="text" class="form-control" value.bind="filters.any" placeholder="Search for medical professionals" />
+            <div class="input-group-btn">
+                <div class="btn-group" role="group">
+                    <div class="dropdown dropdown-lg">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="contain">Identity</label>
+                                    <input class="form-control" value.bind="filters.identity" type="text" />
+                                </div>
+                                <div class="form-group" if.bind="roles">
+                                    <label for="filter">Filter by</label>
+                                    <select class="form-control" value.bind="filters.roles">
+                                        <option selected value="undefined">All Roles</option>
+                                        <option repeat.for="role of roles" value="${role}">${role}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contain">User Id</label>
+                                    <input class="form-control" value.bind="filters.location" type="text" />
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <table if.bind="disabled" class="table">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Notes</th>
+                <th>Detail</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="user of applicationUsers">
+                <td>${ user.userName }</td>
+                <td>${ user.email }</td>
+                <td>${ user.emailConfirmed }</td>
+                <td>${ user.phoneNumber }</td>
+                <td>${ user.twoFactorEnabled }</td>
+                <td>${ user.accessFailedCount }</td>
+                if LockOutEnd !== null then the user is locked
+                <td>${ user.LockOutEnd }</td>
+                <td>
+                    <a href="#/medical/detail/${user.id}">View</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="col-md-12 listing-block">
+        <div class="media" repeat.for="user of applicationUsers">
+            <div class="media-body pl-3">
+                <div class="title"><a href="#/admin/accounts/detail/${user.id}">${ user.userName }</a>
+                    <small>${user.phoneNumber}</small>
+                </div>
+                <div class="stats">
+                    <span>
+                        <i class="fa fa-envelope"></i>${ user.email }</span>
+                    <span>
+                        <i class="fa fa-phone"></i>${ user.phoneNumber }</span>
+                </div>
+                <div class="address">
+                    ${user.emailConfirmed} (Email Icon, Red = Not confirmed, Green = Confirmed with Tooltip)
+                    ${user.twoFactorEnabled} (Security Icon, Red = 2FA Not Enabled, Green = 2FA Enabled with Tooltip)
+                    ${user.accessFailedCount} (Jail Icon, Red = User Locked out, Invisible = User can login)
+
+                </div>
+                <a href="#/medical/detail/${user.id}">View</a>
+            </div>
+        </div>
+    </div>
+
+</template>
