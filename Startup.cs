@@ -24,6 +24,7 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 using System.IO;
+using MediMatchRMIT.Controllers;
 
 namespace MediMatchRMIT
 {
@@ -156,7 +157,7 @@ namespace MediMatchRMIT
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedData dbSeed, ApplicationDbContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedData dbSeed, ApplicationDbContext context, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -195,6 +196,14 @@ namespace MediMatchRMIT
             {
                 context.Database.Migrate();
                 dbSeed.Seed().Wait();
+                var adminUser = new ApplicationUser
+                {
+
+                    UserName = Configuration["AppSettings:Email"],
+                    Email = Configuration["AppSettings:Email"],
+                };
+                string adminPassword = Configuration.GetSection("AppSettings:Password").Value;
+                CreateRoles(serviceProvider, adminUser, adminPassword).Wait();
             }
             catch (Exception ex)
             {
@@ -203,5 +212,39 @@ namespace MediMatchRMIT
             }
 
         }
-}
+
+        public async Task CreateRoles(IServiceProvider serviceProvider, ApplicationUser adminUser, string adminPassword)
+        {
+            //initializing custom roles 
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            string[] roleNames = { "Admin", "Moderators", "Patient", "MedicalProfessional" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+            var _user = await UserManager.FindByEmailAsync(adminUser.Email);
+
+            if (_user == null)
+            {
+                var createPowerUser = await UserManager.CreateAsync(adminUser, adminPassword);
+                if (createPowerUser.Succeeded)
+                {
+                    //here we tie the new user to the role
+                    await UserManager.AddToRoleAsync(adminUser, "Admin");
+                }
+            }
+            else
+            {
+                await UserManager.AddToRoleAsync(adminUser, "Admin");
+            }
+        }
+
+    }
 }

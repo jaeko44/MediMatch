@@ -1,0 +1,51 @@
+<template>
+    <h1>Update Facility</h1>
+
+    
+
+    <label for="filter">Select an existing Facility</label>
+    <select class="form-control" value.bind="selectedFacility">
+        <option selected value="undefined">All Facilities</option>
+        <option repeat.for="facility of facilities" value="${facility.id}">${facility.facilityName}</option>
+    </select>
+
+    <br>
+    <h4>Or create a new one: </h4>
+
+    <form role="form" submit.delegate="UpdateFacility()">
+        <div class="form-group">
+            <label for="facilityName">Facility Name</label>
+            <input type="text" value.bind="facility.facilityName" id="facilityName" placeholder="Facility Name">
+        </div>
+        <div class="form-group">
+            <label for="facilityNo">Phone Number</label>
+            <input type="text" value.bind="facility.phoneNo" id="facilityNo" autocomplete='tel' placeholder="+61 0420200">
+        </div>
+        <div class="form-group">
+            <label for="email">Public Email</label>
+            <input type="email" value.bind="facility.email" id="email" autocomplete='email' placeholder="email@domain.com">
+        </div>
+        <div class="form-group">
+            <label for="location.streetNo">Street No</label>
+            <input type="text" value.bind="facility.Location.StreetNo" id="location.streetNo" autocomplete='address-line1' placeholder="Street No">
+        </div>
+        <div class="form-group">
+            <label for="facility.location.street">Street</label>
+            <input type="text" value.bind="facility.Location.Street" id="location.street" autocomplete='address-line2' placeholder="Street">
+        </div>
+        <div class="form-group">
+            <label for="location.postCode">Post Code</label>
+            <input type="number" value.bind="facility.Location.PostCode" id="location.postCode" autocomplete='postal-code' placeholder="Post Code">
+        </div>
+        <div class="form-group">
+            <label for="location.suburb">Suburb</label>
+            <input type="text" value.bind="facility.Location.Suburb" id="location.suburb" autocomplete='address-level2' placeholder="Suburb">
+        </div>
+        <div class="form-group">
+            <label for="website">Website</label>
+            <input type="url" value.bind="facility.website" id="website" placeholder="Website">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Facility</button>
+    </form>
+</template>

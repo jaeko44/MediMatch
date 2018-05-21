@@ -16,6 +16,7 @@ using MediMatchRMIT.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MediMatchRMIT.Controllers
 {
@@ -229,6 +230,17 @@ namespace MediMatchRMIT.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    //We could directly assign AddtoRole to model.Role but that would mean we would be suspectible to data manipulation, example they could change the Call to
+                    //Include role of 'Admin' which would allow AllowAnonymous users to create admin accounts :P
+                    if (model.Role == "Patient")
+                    {
+                        await _userManager.AddToRoleAsync(user, "Patient");
+                    }
+                    else if (model.Role == "MedicalProfessional")
+                    {
+                        await _userManager.AddToRoleAsync(user, "MedicalProfessional");
+                    }
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);

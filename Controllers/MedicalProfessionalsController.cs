@@ -10,6 +10,8 @@ using MediMatchRMIT.Models;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Security.Claims;
+using MediMatchRMIT.Extensions;
 
 namespace MediMatchRMIT.Controllers
 {
@@ -32,7 +34,7 @@ namespace MediMatchRMIT.Controllers
                                                .Include(m => m.Facility.Location);
         }
 
-        // GET: api/MedicalProfessionals/5
+        // GET: api/MedicalProfessionals/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMedicalProfessional([FromRoute] Guid id)
         {
@@ -54,12 +56,39 @@ namespace MediMatchRMIT.Controllers
 
             return Ok(medicalProfessional);
         }
-        public class Filter
+
+        // GET: api/MedicalProfessionals/ByUserId
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("ByUserId")] 
+        public async Task<IActionResult> GetLoggedInMedicalProfessional()
         {
-            public string service {get; set; } = null;
-            public string identity {get; set;} = null;
-            public string location {get; set;} = null;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+
+
+            IQueryable<MedicalProfessional> result = _context.MedicalProfessional;
+
+            if (userId != null)
+            {
+                result = _context.MedicalProfessional.Where(m => m.UserId == userId);
+            }
+
+            var medicalProfessional = await result.Include(m => m.Service)
+                                                   .Include(m => m.Facility.Location).FirstAsync();
+
+            if (medicalProfessional.Id == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(medicalProfessional);
         }
+
         [Route("Filter")]
         [HttpGet]
         public async Task<IActionResult> FilterMedicalProfessionals([FromHeader] string service = null, [FromHeader] string identity = null, [FromHeader] string location = null, [FromHeader] string any = null)
@@ -77,27 +106,27 @@ namespace MediMatchRMIT.Controllers
 
             if (location != null && location != "undefined") {
                 result = result.Where(m => m.Facility.Location.Suburb.Contains(location) ||
-                                                                    m.Facility.Location.State.Contains(location) ||
-                                                                    m.Facility.Location.Street.Contains(location) ||
-                                                                    m.Facility.Location.PostCode.Contains(location));
+                                                                    m.Facility.Location.State.Contains(location, StringComparison.OrdinalIgnoreCase) ||
+                                                                    m.Facility.Location.Street.Contains(location, StringComparison.OrdinalIgnoreCase) ||
+                                                                    m.Facility.Location.PostCode.Contains(location, StringComparison.OrdinalIgnoreCase));
             }
 
             if (identity != null && identity != "undefined") {
-                result = result.Where(m=> m.FirstMidName.Contains(identity) ||
-                                          m.LastName.Contains(identity) ||
-                                          m.Email.Contains(identity));
+                result = result.Where(m=> m.FirstMidName.Contains(identity, StringComparison.OrdinalIgnoreCase) ||
+                                          m.LastName.Contains(identity, StringComparison.OrdinalIgnoreCase) ||
+                                          m.Email.Contains(identity, StringComparison.OrdinalIgnoreCase));
             }
 
             if (any != null && any != "undefined")
             {
-                result = result.Where(m => m.FirstMidName.Contains(any) ||
-                                          m.LastName.Contains(any) ||
-                                          m.Email.Contains(any) ||
-                                          m.Facility.Location.Suburb.Contains(any) ||
-                                          m.Facility.Location.State.Contains(any) ||
-                                          m.Facility.Location.Street.Contains(any) ||
-                                          m.Facility.Location.PostCode.Contains(any) ||
-                                          m.Service.Category.Contains(any));
+                result = result.Where(m => m.FirstMidName.Contains(any, StringComparison.OrdinalIgnoreCase) ||
+                                          m.LastName.Contains(any, StringComparison.OrdinalIgnoreCase) ||
+                                          m.Email.Contains(any, StringComparison.OrdinalIgnoreCase) ||
+                                          m.Facility.Location.Suburb.Contains(any, StringComparison.OrdinalIgnoreCase) ||
+                                          m.Facility.Location.State.Contains(any, StringComparison.OrdinalIgnoreCase) ||
+                                          m.Facility.Location.Street.Contains(any, StringComparison.OrdinalIgnoreCase) ||
+                                          m.Facility.Location.PostCode.Contains(any, StringComparison.OrdinalIgnoreCase) ||
+                                          m.Service.Category.Contains(any, StringComparison.OrdinalIgnoreCase));
             }
 
             var medicalProfessionals = await result.Include(m => m.Service)
@@ -173,7 +202,7 @@ namespace MediMatchRMIT.Controllers
             }
             catch (DbUpdateException DBException)
             {
-                return null;
+                return BadRequest(DBException);
             }
 
         }

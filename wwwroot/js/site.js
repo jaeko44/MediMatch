@@ -1,4 +1,23 @@
 ﻿// Write your JavaScript code.
+$(document).ready(function () {
+    var token = sessionStorage.getItem('token');
+    if (token === null) {
+        var Email = localStorage.getItem('Email');
+        var Password = localStorage.getItem('Password');
+        console.log(Email + Password);
+        if (Email !== undefined && Password !== undefined) {
+            var formObject = {
+                Email: Email,
+                Password: Password
+            }
+            token = getToken(formObject);
+            if (token === true) {
+                console.log("Token has been set");
+            }
+        }
+    }
+});
+
 function getToken(formData) {
     console.log(formData);
     $.ajax({
@@ -16,7 +35,7 @@ function getToken(formData) {
     });
 }
 
-function registerToken(formData) {
+function registerUser(formData) {
     $.ajax({
         type: "POST",
         url: "/Account/Register",
@@ -25,23 +44,25 @@ function registerToken(formData) {
         success: function (data) {
             console.log("Register returned data:");
             console.log(data);
+            return true;
         },
         error: function (textStatus) {
             return textStatus;
         }
     });
-    var success = getToken(formData);
-    return success;
+    return true;
 }
 
 function clearToken() {
-    if (sessionStorage.getItem("token") == null) {
+    if (sessionStorage.getItem("token") === null) {
         return false;
     }
     else {
         userSignout();
     }
     sessionStorage.clear('token');
+    localStorage.clear('Email');
+    localStorage.clear('Password');
     return true;
 }
 

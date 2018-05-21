@@ -1,8 +1,8 @@
 <template>
-    <h1>Medical Professionals Create</h1>
+    <h1>Medical Professionals Update</h1>
     <link rel="stylesheet" href="/lib/jquery-tagseditor/jquery.tag-editor.css">
 
-    <form role="form" submit.delegate="CreateMedicalProfessional()">
+    <form role="form" submit.delegate="UpdateMedicalProfessional()">
         <div class="form-group">
             <label for="firstMidName">First Name</label>
             <input type="text" value.bind="medicalProfessional.firstMidName" id="firstMidName" placeholder="First Name">
@@ -26,13 +26,6 @@
                 <option value="null">Select a Service Type</option>
                 <option repeat.for="service of services" value="${service.id}">${ service.category}</option>
             </select>
-            <span class="fa fa-check" click.trigger="addService()"></span>
-        </div>
-        <div class="form-group">
-            <label for="services">Services: </label>
-            <form>
-                <input type="text" class="form-control form-control-tag" id="serviceTags" ref="inputTags">
-            </form>
         </div>
         <div class="form-group">
             <label for="serviceType">Facility Location</label>
@@ -71,6 +64,6 @@
             <label for="notes">Notes</label>
             <textarea class="form-control" id="notes" value.bind="medicalProfessional.notes" rows="3"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Create Medical Professional</button>
+        <button type="submit" class="btn btn-primary">Update Medical Professional</button>
     </form>
 </template>
