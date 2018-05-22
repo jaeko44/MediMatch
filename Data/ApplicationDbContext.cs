@@ -1786,33 +1786,6 @@ new MedicalProfessional () {
             }
             }
             },
-
-            new MedicalProfessional () { //This object is mostly complete now with all the variables u can put in it.
-            FirstMidName = "Alexandra",
-            LastName = "Killian",
-            PhoneNumber = "(08) 8703 3021",
-            Email = "AlexandraKillian@mindframepsychology.com.au",
-            Notes = "Great Psychologist",
-            Service = _serviceList[1],
-            HoursActive = new List<HoursActive> {
-            //We can add a list of every week day they are active and their hours.
-            new HoursActive () {              
-            WeekDays = "Sunday",
-            Hours = "9 AM - 5 PM"
-            },
-            new HoursActive () {
-            WeekDays = "Monday",
-            Hours = "9 AM - 6 PM"
-            }
-            },
-
-            Facility = new Facility () {
-            FacilityName = "MindFrame Psychology", Email = "hello@mindframepsychology.com.au", PhoneNo = "04202020", Website = "https://www.mindframepsychology.com.au/", notes = "Generalist counselling",
-            Location = new Address () {
-            PostCode = "2000", State = "NSW", StreetNo = "Suite 916, Level 9, St James Trust Building, 185 ", Street = "Elizabeth", Suburb = "Sydney"
-            }
-            }
-            }, //Put comma and paste from 'new MedicalProfessional() section'
             new MedicalProfessional () { //This object is mostly complete now with all the variables u can put in it.
             FirstMidName = "Aaron",
             LastName = "Becher",
