@@ -1,7 +1,7 @@
 # MediMatch
 Medical Matching Service for the Australian Population
 
-Demo of app can be found here: http://medimatchrmit.azurewebsites.net/
+Demo of app can be found here: http://medimatch.azurewebsites.net/
 
 # Instructions to Run
 
@@ -10,15 +10,17 @@ Demo of app can be found here: http://medimatchrmit.azurewebsites.net/
 
 ```
 - Navigate to MediMatchRMIT Folder
-- Open windows command lines
+- Open windows command line or any other terminal.
 
 - Run following command
 
 > npm install
 
+> dotnet restore
+
 > dotnet ef migrations add [migration name] 
 
-OR use Package Manager in Visual Studio (recommended)
+OR use Package Manager in Visual Studio
 
 PM> Add-Migration [migration name] 
 
